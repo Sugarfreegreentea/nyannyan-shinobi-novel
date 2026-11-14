@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "file": "chapters/chapter_01.txt",
+    "label": "EPISODE 01",
+    "tabTitle": "第一節",
+    "title": "第一節：無聊的擦邊廣告——《忍者喵喵》",
+    "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的哭喊求饒，與社區公園單槓場上兩個好勝蹦跳的小朋友。",
+    "cover": "images/cg_blade.jpg",
+    "isFocus": false,
+    "badge": "EPISODE 01"
+  },
+  {
+    "id": 3,
+    "file": "chapters/chapter_03.txt",
+    "label": "EPISODE 03",
+    "tabTitle": "第三節",
+    "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？",
+    "desc": "手滑把「無糖綠」填入入群問題的烏龍；滿屏電弧炸裂的新角色，與被河童王社群全員當作賣茶機器人的熱烈拷問。",
+    "cover": "images/cg_throne.jpg",
+    "isFocus": false,
+    "badge": "EPISODE 03"
+  },
+  {
+    "id": 4,
+    "file": "chapters/chapter_04.txt",
+    "label": "EPISODE 04",
+    "tabTitle": "第四節",
+    "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」",
+    "desc": "日常免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的靈魂呢喃——「記得來找我，我是円香。」",
+    "cover": "images/cg_stance.jpg",
+    "isFocus": false,
+    "badge": "EPISODE 04"
+  },
+  {
+    "id": 5,
+    "file": "chapters/chapter_05.txt",
+    "label": "EPISODE 05",
+    "tabTitle": "第五節 (新)",
+    "title": "第五節：狂奔的粉髮男子——「有事情要發生了」",
+    "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的堅硬大胸肌！驚心動魄的公園大逃殺與神祕預言。",
+    "cover": "images/cg_sakura.jpg",
+    "isFocus": false,
+    "badge": "最新 · EPISODE 05"
+  },
+  {
+    "id": 2,
+    "file": "chapters/chapter_02.txt",
+    "label": "EPISODE 02",
+    "tabTitle": "第二節 (特寫)",
+    "title": "第二節：初遇——單槓場上的鬼角劍姬",
+    "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒時由黑絲長腿一路向上的視線……「變態……」，以及驟然蒸發的不可思議殘影。",
+    "cover": "images/kunoichi_view.jpg",
+    "isFocus": true,
+    "badge": "精選焦點 · EPISODE 02"
+  }
+]
