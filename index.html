@@ -3,39 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《忍者喵喵》同人小說錄・線上閱讀</title>
+  <title>《忍者喵喵》同人小說錄</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f8fafc;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --card-border: rgba(226, 232, 240, 0.85);
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
       --text-main: #0f172a;
       --text-sub: #64748b;
-      --text-article: #1e293b;
+      --text-body: #1e293b;
       --cherry: #f43f5e;
-      --cherry-light: #ffe4e6;
-      --cherry-hover: #e11d48;
+      --cherry-soft: #fff1f2;
       --sky: #0ea5e9;
-      --sky-light: #e0f2fe;
-      --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #fb7185 50%, #38bdf8 100%);
-      --accent-glow: rgba(244, 63, 94, 0.22);
+      --sky-soft: #f0f9ff;
+      --gradient: linear-gradient(135deg, #f43f5e 0%, #fb7185 55%, #38bdf8 100%);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 30%, #ffffff 100%);
+      background-color: var(--bg);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', "Noto Sans TC", sans-serif;
       min-height: 100vh;
-      line-height: 1.75;
+      line-height: 1.7;
       scroll-behavior: smooth;
     }
 
-    /* 頂部導航欄 - 手機自適應防擠壓變形 */
+    /* 頂部導航欄 */
     .top-nav {
       position: sticky;
       top: 0;
@@ -44,11 +43,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 6%;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--card-border);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
       gap: 14px;
     }
     .brand {
@@ -61,358 +59,377 @@
       flex-shrink: 0;
     }
     .brand-badge {
-      background: var(--accent-gradient);
+      background: var(--gradient);
       color: #fff;
       font-weight: 800;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 999px;
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 6px;
       letter-spacing: 0.5px;
     }
     .brand-name {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
     }
 
-    /* 標籤群組：支援手機端平滑橫向滾動，永不變形折行 */
     .nav-tabs {
       display: flex;
-      gap: 6px;
+      gap: 4px;
       align-items: center;
       background: #f1f5f9;
       padding: 4px;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border-radius: 10px;
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       max-width: 100%;
     }
-    .nav-tabs::-webkit-scrollbar {
-      display: none;
-    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
-      padding: 7px 15px;
+      padding: 6px 14px;
       border: none;
       background: transparent;
       color: var(--text-sub);
       font-size: 0.88rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 7px;
       cursor: pointer;
       transition: all 0.2s ease;
       font-family: inherit;
       flex-shrink: 0;
     }
-    .tab-btn:hover {
-      color: var(--cherry);
-    }
+    .tab-btn:hover { color: var(--cherry); }
     .tab-btn.active {
       background: #ffffff;
       color: var(--cherry);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    }
-    .tab-btn.tab-focus {
-      background: rgba(244, 63, 94, 0.1);
-      color: var(--cherry);
-    }
-    .tab-btn.tab-focus.active {
-      background: var(--accent-gradient);
-      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    /* 首頁英雄展示區 */
-    .hero-container {
-      max-width: 1140px;
-      margin: 40px auto 50px auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: var(--cherry-light);
-      color: #e11d48;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-      width: fit-content;
-    }
-    .hero-title {
-      font-family: 'Noto Serif TC', serif;
-      font-size: clamp(2.1rem, 4vw, 3.1rem);
-      font-weight: 900;
-      line-height: 1.3;
-      color: #0f172a;
-      margin-bottom: 18px;
-    }
-    .gradient-text {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-sub);
-      margin-bottom: 30px;
-      line-height: 1.75;
-    }
-    .cta-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .btn-main {
-      display: inline-flex;
-      align-items: center;
-      padding: 12px 26px;
-      background: var(--accent-gradient);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 8px 20px var(--accent-glow);
-      transition: all 0.25s ease;
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
-    }
-    .btn-main:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(244, 63, 94, 0.35);
+    /* 主容器 */
+    .main-container {
+      max-width: 960px;
+      margin: 36px auto 70px auto;
+      padding: 0 20px;
     }
 
-    /* 右側立體卡片 */
-    .hero-card-wrap {
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
-    .card-ambient-glow {
-      position: absolute;
-      width: 90%;
-      height: 90%;
-      background: radial-gradient(circle, rgba(251, 113, 133, 0.25) 0%, rgba(56, 189, 248, 0.2) 60%, transparent 80%);
-      filter: blur(40px);
-      z-index: 1;
-    }
-    .hero-preview-card {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 420px;
+    /* 簡潔清晰的書籍資訊標頭 */
+    .book-header {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      overflow: hidden;
-      background: #ffffff;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-      transition: transform 0.35s ease;
-      cursor: pointer;
+      padding: 32px 36px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
     }
-    .hero-preview-card:hover {
-      transform: translateY(-5px);
+    .book-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.3rem);
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      line-height: 1.3;
     }
-    .preview-img-container {
-      width: 100%;
-      height: 380px;
-      overflow: hidden;
-      background: #f1f5f9;
-    }
-    .preview-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      transition: transform 0.4s ease;
-    }
-    .hero-preview-card:hover .preview-img-container img {
-      transform: scale(1.03);
-    }
-    .preview-footer {
-      padding: 16px 20px;
-      background: #ffffff;
-      border-top: 1px solid #f1f5f9;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .preview-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .preview-tag {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--cherry);
+    .book-intro {
+      color: var(--text-sub);
+      font-size: 0.98rem;
+      line-height: 1.75;
+      max-width: 720px;
     }
 
-    /* 快捷章節卡片網格 */
-    .section-container {
-      max-width: 1140px;
-      margin: 0 auto 60px auto;
-      padding: 0 24px;
+    /* 上次閱讀進度提示條 */
+    .progress-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, #fff1f2 0%, #f0f9ff 100%);
+      border: 1px solid #fecdd3;
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.06);
     }
-    .section-title-bar {
-      margin-bottom: 24px;
-    }
-    .section-h2 {
-      font-size: 1.55rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 6px;
-    }
-    .section-desc {
-      color: var(--text-sub);
-      font-size: 0.95rem;
-    }
-    .chapters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-    }
-    .chapter-card {
-      background: #ffffff;
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      overflow: hidden;
-      cursor: pointer;
+    .progress-info {
       display: flex;
       flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+      gap: 4px;
     }
-    .chapter-card:hover {
-      transform: translateY(-5px);
-      border-color: #cbd5e1;
-      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
-    }
-    .card-thumb {
-      position: relative;
-      width: 100%;
-      height: 190px;
-      overflow: hidden;
-      background: #f8fafc;
-    }
-    .card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      transition: transform 0.4s ease;
-    }
-    .chapter-card:hover .card-thumb img {
-      transform: scale(1.05);
-    }
-    .episode-tag {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(8px);
-      color: #334155;
-    }
-    .episode-tag.highlight {
-      background: linear-gradient(135deg, #f43f5e, #fb7185);
-      color: #ffffff;
-    }
-    .episode-tag.latest {
-      background: rgba(14, 165, 233, 0.95);
-      color: #ffffff;
-    }
-    .card-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 8px;
-      line-height: 1.45;
-    }
-    .card-text {
-      color: var(--text-sub);
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-    .card-action {
-      font-size: 0.88rem;
+    .progress-label {
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--cherry);
       display: flex;
       align-items: center;
       gap: 6px;
     }
+    .progress-chapter-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .progress-btn {
+      padding: 10px 22px;
+      background: var(--gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+    .progress-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(244, 63, 94, 0.35);
+    }
 
-    /* 內嵌沉浸式閱讀器 */
+    /* 目錄區塊標題 */
+    .toc-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding: 0 4px;
+    }
+    .toc-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .toc-count {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       電腦版排列：乾淨整齊的卡片網格 (Desktop Grid Layout)
+       ========================================================= */
+    .chapters-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .chapter-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.22s ease;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.02);
+      position: relative;
+    }
+    .chapter-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--cherry);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+    .chapter-item.is-last-read {
+      border-color: #fda4af;
+      background: #fffafa;
+    }
+    .item-thumb {
+      width: 100%;
+      height: 170px;
+      overflow: hidden;
+      background: #f1f5f9;
+      position: relative;
+    }
+    .item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.35s ease;
+    }
+    .chapter-item:hover .item-thumb img {
+      transform: scale(1.04);
+    }
+    .item-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .item-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .ep-num {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--sky);
+      background: var(--sky-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .last-read-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--cherry);
+      background: var(--cherry-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .item-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .item-desc {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .item-arrow-mobile {
+      display: none;
+    }
+
+    /* =========================================================
+       手機版排列：另一種緊湊橫向清單模式 (Mobile Compact List Layout)
+       左圖右文、不佔垂直空間、一眼看完所有章節
+       ========================================================= */
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 16px;
+        gap: 10px;
+      }
+      .brand { justify-content: center; }
+      .nav-tabs { width: 100%; justify-content: flex-start; }
+
+      .main-container {
+        margin: 20px auto 60px auto;
+        padding: 0 14px;
+      }
+      .book-header {
+        padding: 22px 20px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+      }
+      .progress-banner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 18px;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .progress-btn {
+        text-align: center;
+        width: 100%;
+      }
+
+      /* 手機版改成單欄緊湊橫排列表 */
+      .chapters-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .chapter-item {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px;
+        border-radius: 14px;
+        gap: 14px;
+      }
+      .chapter-item:hover {
+        transform: none;
+      }
+      .item-thumb {
+        width: 74px;
+        height: 74px;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+      .item-body {
+        padding: 0;
+        min-width: 0; /* 確保文字截斷生效 */
+      }
+      .item-meta {
+        margin-bottom: 4px;
+      }
+      .item-title {
+        font-size: 0.98rem;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .item-desc {
+        font-size: 0.82rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .item-arrow-mobile {
+        display: block;
+        color: #94a3b8;
+        font-size: 1.3rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        padding-left: 4px;
+      }
+    }
+
+    /* =========================================================
+       內嵌沉浸式閱讀器 (In-Page Reader)
+       ========================================================= */
     .reader-wrapper {
-      max-width: 860px;
-      margin: 30px auto 80px auto;
-      padding: 0 20px;
+      max-width: 820px;
+      margin: 28px auto 80px auto;
+      padding: 0 18px;
       display: none;
     }
     .reader-card {
-      background: #ffffff;
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 48px 40px;
-      box-shadow: 0 20px 48px rgba(15, 23, 42, 0.05);
-      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 38px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
     }
     .reader-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
+      padding-bottom: 18px;
+      margin-bottom: 28px;
       border-bottom: 1px solid #f1f5f9;
-    }
-    .reader-breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      color: var(--text-sub);
     }
     .reader-back-btn {
       color: var(--cherry);
       font-weight: 700;
+      font-size: 0.92rem;
       cursor: pointer;
-      text-decoration: none;
     }
     .chapter-heading {
       font-family: 'Noto Serif TC', serif;
-      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-size: clamp(1.45rem, 3vw, 1.95rem);
       font-weight: 900;
-      color: #0f172a;
-      line-height: 1.38;
-      margin-bottom: 30px;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 28px;
       padding-bottom: 16px;
-      border-bottom: 2px solid var(--cherry-light);
+      border-bottom: 2px solid var(--cherry-soft);
     }
     .novel-body p {
       font-size: 1.08rem;
       line-height: 2.05;
-      color: var(--text-article);
-      margin-bottom: 1.6em;
+      color: var(--text-body);
+      margin-bottom: 1.55em;
       text-indent: 2em;
       letter-spacing: 0.4px;
     }
@@ -421,40 +438,33 @@
       border-left: 4px solid var(--sky);
       padding: 16px 20px;
       margin: 24px 0;
-      border-radius: 0 12px 12px 0;
-      font-style: italic;
+      border-radius: 0 10px 10px 0;
       color: #334155;
-      font-size: 1rem;
-      white-space: pre-line;
+      font-size: 0.98rem;
     }
     .dialogue-critical {
       text-indent: 0 !important;
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 900;
       color: #e11d48;
       text-align: center;
-      letter-spacing: 5px;
-      margin: 36px 0;
-      text-shadow: 0 0 18px rgba(244, 63, 94, 0.35);
+      letter-spacing: 4px;
+      margin: 34px 0;
     }
     .cg-container {
-      margin: 36px 0;
+      margin: 32px 0;
       display: flex;
       justify-content: center;
     }
     .cg-frame {
-      max-width: 520px;
+      max-width: 500px;
       width: 100%;
       background: #ffffff;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
       cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .cg-frame:hover {
-      transform: translateY(-4px);
     }
     .novel-cg {
       width: 100%;
@@ -462,9 +472,9 @@
       display: block;
     }
     .cg-caption {
-      padding: 12px 16px;
+      padding: 10px 14px;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-sub);
       background: #f8fafc;
       border-top: 1px solid #f1f5f9;
@@ -473,21 +483,23 @@
     .reader-nav-controls {
       display: flex;
       justify-content: space-between;
-      margin-top: 48px;
-      padding-top: 24px;
+      margin-top: 44px;
+      padding-top: 22px;
       border-top: 1px solid #f1f5f9;
+      gap: 10px;
     }
     .page-turn-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 10px;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border);
       background: #ffffff;
       color: var(--text-main);
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
       font-family: inherit;
@@ -495,7 +507,18 @@
     .page-turn-btn:hover {
       border-color: var(--cherry);
       color: var(--cherry);
-      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .reader-card {
+        padding: 26px 18px;
+        border-radius: 16px;
+      }
+      .novel-body p {
+        font-size: 1.03rem;
+        line-height: 1.95;
+        text-indent: 1.8em;
+      }
     }
 
     /* 燈箱大圖 */
@@ -503,77 +526,41 @@
       display: none;
       position: fixed;
       z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(10px);
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      opacity: 0;
-      transition: opacity 0.25s ease;
     }
-    .lightbox-modal.active {
-      display: flex;
-      opacity: 1;
-    }
+    .lightbox-modal.active { display: flex; }
     .lightbox-img {
-      max-width: 90vw;
-      max-height: 84vh;
-      border-radius: 12px;
-      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 92vw;
+      max-height: 82vh;
+      border-radius: 10px;
     }
     .lightbox-caption {
-      margin-top: 14px;
-      font-size: 1rem;
+      margin-top: 12px;
+      font-size: 0.95rem;
       color: #f8fafc;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
     .lightbox-close {
       position: absolute;
-      top: 24px;
-      right: 32px;
+      top: 20px; right: 26px;
       font-size: 2.2rem;
       color: #e2e8f0;
       cursor: pointer;
-      user-select: none;
     }
-    .lightbox-close:hover { color: var(--cherry); }
 
     footer {
       text-align: center;
-      padding: 36px 20px;
+      padding: 32px 20px;
       color: #94a3b8;
-      font-size: 0.88rem;
-      border-top: 1px solid #e2e8f0;
-      background: #ffffff;
-    }
-
-    @media (max-width: 860px) {
-      .top-nav {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 10px 16px;
-        gap: 10px;
-      }
-      .brand {
-        justify-content: center;
-      }
-      .nav-tabs {
-        width: 100%;
-        justify-content: flex-start;
-        padding: 4px;
-      }
-      .hero-container { grid-template-columns: 1fr; gap: 32px; text-align: center; }
-      .hero-tag { margin: 0 auto 16px auto; }
-      .hero-subtitle { margin: 0 auto 28px auto; }
-      .cta-row { justify-content: center; }
-      .reader-card { padding: 30px 18px; }
-      .novel-body p { font-size: 1.02rem; text-indent: 1.8em; }
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
     }
   </style>
 </head>
@@ -586,106 +573,78 @@
       <span class="brand-name">忍者喵喵</span>
     </div>
     <div class="nav-tabs" id="nav-tabs-container">
-      <button class="tab-btn active" id="tab-home" onclick="switchView('home')">首頁總覽</button>
-      <!-- 動態從 chapters/manifest.json 生成分頁標籤 -->
+      <button class="tab-btn active" id="tab-home" onclick="switchView('home')">目錄首頁</button>
     </div>
   </header>
 
-  <!-- 首頁主視覺視圖 -->
-  <div id="home-view">
-    <main class="hero-container">
-      <div class="hero-text-block">
-        <div class="hero-tag">
-          <span>✦</span>
-          <span>都市日常與異界劍姬的邂逅</span>
-        </div>
-        <h1 class="hero-title">
-          拉單槓的午後散策，<br>
-          遇見<span class="gradient-text">單槓場上的鬼角劍姬</span>
-        </h1>
-        <p class="hero-subtitle">
-          原以為只是個常見的劣質手遊廣告，直到在平靜的社區公園單槓區旁，迎面走來那名身著破格和服羽織、步伐如忍術般輕巧無聲的少女……
-        </p>
-        <div class="cta-row">
-          <button class="btn-main" onclick="openChapter(1)">從第一節開始閱讀 →</button>
-          <button class="btn-main" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border); box-shadow: none;" onclick="openChapter(5)">最新進度：第五節 粉髮男子</button>
-        </div>
-      </div>
-
-      <!-- 右側卡片展示 -->
-      <div class="hero-card-wrap">
-        <div class="card-ambient-glow"></div>
-        <div class="hero-preview-card" onclick="openChapter(2)">
-          <div class="preview-img-container">
-            <img src="images/cg_sakura.jpg" alt="落櫻側顏特寫">
-          </div>
-          <div class="preview-footer">
-            <div class="preview-title">落櫻流轉・側顏之謎</div>
-            <div class="preview-tag">點擊進入焦點特寫 ✦</div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- 章節瀏覽選單 -->
-    <section class="section-container">
-      <div class="section-title-bar">
-        <h2 class="section-h2">章節目錄</h2>
-        <p class="section-desc">自動讀取純文字章節庫，點擊卡片即可展開無縫閱讀</p>
-      </div>
-
-      <div class="chapters-grid" id="chapters-grid-container">
-        <!-- 動態從 chapters/manifest.json 生成卡片 -->
-      </div>
+  <!-- 首頁視圖 -->
+  <main class="main-container" id="home-view">
+    <!-- 書籍介紹標頭 -->
+    <section class="book-header">
+      <h1 class="book-title">《忍者喵喵》同人小說錄</h1>
+      <p class="book-intro">
+        從一款劣質擦邊塔防廣告開始，現代社區公園單槓場與異界鬼角忍姬的日常交錯。喝一罐無糖綠，拉幾下單槓，一場跨越次元的奇妙物語就此展開。
+      </p>
     </section>
-  </div>
+
+    <!-- 上次閱讀進度提示卡 -->
+    <section class="progress-banner" id="progress-banner">
+      <div class="progress-info">
+        <span class="progress-label" id="progress-label">✨ 開始閱讀</span>
+        <div class="progress-chapter-title" id="progress-title">第一節：無聊的擦邊廣告——《忍者喵喵》</div>
+      </div>
+      <button class="progress-btn" id="progress-action-btn" onclick="openChapter(1)">開始閱讀 →</button>
+    </section>
+
+    <!-- 章節列表 -->
+    <div class="toc-header">
+      <h2 class="toc-title">章節目錄</h2>
+      <span class="toc-count" id="toc-count-label">共 5 節</span>
+    </div>
+
+    <div class="chapters-list" id="chapters-list-container">
+      <!-- 動態依正常順序 1 -> 2 -> 3 -> 4 -> 5 生成 -->
+    </div>
+  </main>
 
   <!-- 內嵌閱讀器視圖 -->
   <div class="reader-wrapper" id="reader-view">
     <article class="reader-card">
       <div class="reader-toolbar">
-        <div class="reader-breadcrumb">
-          <span class="reader-back-btn" onclick="switchView('home')">← 返回章節總覽</span>
-          <span>/</span>
-          <span id="reader-ep-label" style="font-weight: 700; color: var(--cherry);">EPISODE 01</span>
-        </div>
-        <div style="font-size: 0.88rem; color: var(--text-sub);">
-          點擊插圖可放大預覽
-        </div>
+        <span class="reader-back-btn" onclick="switchView('home')">← 返回目錄</span>
+        <span id="reader-ep-label" style="font-size: 0.88rem; font-weight: 700; color: var(--cherry);">EP.01</span>
       </div>
 
-      <div id="reader-content-target">
-        <!-- 動態載入 -->
-      </div>
+      <div id="reader-content-target"></div>
 
       <div class="reader-nav-controls">
         <button class="page-turn-btn" id="prev-btn" onclick="turnPage(-1)">← 上一節</button>
-        <button class="page-turn-btn" style="border-color: #cbd5e1;" onclick="switchView('home')">回目錄</button>
+        <button class="page-turn-btn" onclick="switchView('home')">回目錄</button>
         <button class="page-turn-btn" id="next-btn" onclick="turnPage(1)">下一節 →</button>
       </div>
     </article>
   </div>
 
   <footer>
-    《忍者喵喵》同人小說錄 · 純文字與前端分離架構 · 支援 GitHub Pages 與 Netlify
+    《忍者喵喵》同人小說錄 · 簡潔閱讀版
   </footer>
 
-  <!-- 燈箱彈窗 -->
-  <div class="lightbox-modal" id="lightboxModal" onclick="closeModal(event)">
-    <span class="lightbox-close" onclick="closeModal(event)">&times;</span>
+  <!-- 燈箱大圖 -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeModal()">
+    <span class="lightbox-close" onclick="closeModal()">&times;</span>
     <img src="" alt="" class="lightbox-img" id="modalImg" onclick="event.stopPropagation()">
     <div class="lightbox-caption" id="modalCaption"></div>
   </div>
 
   <script>
-    // 內建備援資料（若直接在本地雙擊打開 file:// 無法執行 fetch，則自動啟用此內建副本；在 GitHub/Netlify 線上環境會即時讀取外部 .txt 檔）
-    const fallbackManifest = [{"id": 1, "file": "chapters/chapter_01.txt", "label": "EPISODE 01", "tabTitle": "第一節", "title": "第一節：無聊的擦邊廣告——《忍者喵喵》", "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的哭喊求饒，與社區公園單槓場上兩個好勝蹦跳的小朋友。", "cover": "images/cg_blade.jpg", "isFocus": false, "badge": "EPISODE 01"}, {"id": 3, "file": "chapters/chapter_03.txt", "label": "EPISODE 03", "tabTitle": "第三節", "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？", "desc": "手滑把「無糖綠」填入入群問題的烏龍；滿屏電弧炸裂的新角色，與被河童王社群全員當作賣茶機器人的熱烈拷問。", "cover": "images/cg_throne.jpg", "isFocus": false, "badge": "EPISODE 03"}, {"id": 4, "file": "chapters/chapter_04.txt", "label": "EPISODE 04", "tabTitle": "第四節", "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」", "desc": "日常免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的靈魂呢喃——「記得來找我，我是円香。」", "cover": "images/cg_stance.jpg", "isFocus": false, "badge": "EPISODE 04"}, {"id": 5, "file": "chapters/chapter_05.txt", "label": "EPISODE 05", "tabTitle": "第五節 (新)", "title": "第五節：狂奔的粉髮男子——「有事情要發生了」", "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的堅硬大胸肌！驚心動魄的公園大逃殺與神祕預言。", "cover": "images/cg_sakura.jpg", "isFocus": false, "badge": "最新 · EPISODE 05"}, {"id": 2, "file": "chapters/chapter_02.txt", "label": "EPISODE 02", "tabTitle": "第二節 (特寫)", "title": "第二節：初遇——單槓場上的鬼角劍姬", "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒時由黑絲長腿一路向上的視線……「變態……」，以及驟然蒸發的不可思議殘影。", "cover": "images/kunoichi_view.jpg", "isFocus": true, "badge": "精選焦點 · EPISODE 02"}];
+    const fallbackManifest = [{"id": 1, "file": "chapters/chapter_01.txt", "label": "EP.01", "tabTitle": "第一節", "title": "第一節：無聊的擦邊廣告——《忍者喵喵》", "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的求饒廣告，與社區單槓場的午後。", "cover": "images/cg_blade.jpg"}, {"id": 2, "file": "chapters/chapter_02.txt", "label": "EP.02", "tabTitle": "第二節", "title": "第二節：初遇——單槓場上的鬼角劍姬", "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒後的仰視視角……「變態……」，與離奇蒸發的少女。", "cover": "images/kunoichi_view.jpg"}, {"id": 3, "file": "chapters/chapter_03.txt", "label": "EP.03", "tabTitle": "第三節", "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？", "desc": "手滑把「無糖綠」填成必殺技的烏龍；雷電滿屏刷怪，與河童王大群的熱烈拷問。", "cover": "images/cg_throne.jpg"}, {"id": 4, "file": "chapters/chapter_04.txt", "label": "EP.04", "tabTitle": "第四節", "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」", "desc": "每日免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的呢喃——「我是円香。」", "cover": "images/cg_stance.jpg"}, {"id": 5, "file": "chapters/chapter_05.txt", "label": "EP.05", "tabTitle": "第五節", "title": "第五節：狂奔的粉髮男子——「有事情要發生了」", "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的胸肌！公園大逃殺與預言。", "cover": "images/cg_sakura.jpg"}];
     const fallbackTexts = {"1": "第一節：無聊的擦邊廣告——《忍者喵喵》\n\n手機螢幕亮起，強制彈出的宣傳片開頭，就是典型到不能再典型的劣質塔防手遊。\n\n畫面解析度勉強算得上及格。一群建模粗糙的小怪正排隊湧向村莊入口，而守在關底的，是一位穿著水藍色和風短裙的少女。與其說是忍者，不如說是為了通過審查而硬套上日系布料的賣肉立繪——裙襬短得搖搖欲墜，每揮一下袖子，物理引擎便誇張得毫無道理地震顫兩下。\n\n理所當然地，操作演示者的水準爛得令人髮指。怪物毫無懸念地衝垮防線，螢幕中央赫然跳出「DEFEAT」的鮮紅大字。\n\n隨後畫面一黑，鏡頭猛地切進陰暗潮濕的地牢。少女雙手被鐵鍊高高吊起，原本整齊的和服扯破了幾處關鍵邊緣，露出泛紅的肌膚與淚眼汪汪的神情。只見她抬起濕漉漉的雙眸直視鏡頭，配上一段甜膩到發慌的劣質日文配音：\n\n「主人……求求您把我買下來吧……再不來的話，人家真的會被那些怪物……玩到壞掉的……」\n\n畫面下方隨即跳出一顆閃爍著土豪金光芒的動態按鈕——【即刻課金贖身，解鎖專屬互動】。\n\n廣告裡那位哭喊著怕被玩壞的藍衣少女，名字叫做「如月」，設定上是個使用冰凍魔法的冰系忍者。\n\n然而進了遊戲才發現，這根本是另一個維度的詐欺。實機畫面縮水成了二頭身大頭娃娃不說，如月揮舞法杖丟出的所謂「絕對零度」，充其量只是在地上結出一塊巴掌大、維持不到兩秒的小冰霜。怪群如潮水般湧過，冰塊碎得比刨冰還快。\n\n主角面無表情地連跪了三場。\n\n「嘖，下載花了三十分鐘，刪除只要三秒鐘。」\n\n主角面無表情地長按圖示、解除安裝，一套行雲流水的動作熟練得令人心酸。現代手遊的宿命大抵如此——等待下載進度條的時間，永遠比它活在手機裡的壽命還要長。\n\n無聊透頂的主角索性把手機揣進口袋，晃悠出門，走到附近的社區公園散心。\n\n午後的陽光穿透樹蔭，灑在銹跡斑斑的高單槓上。主角伸手一抓，掌心貼著微涼粗糙的鐵管，雙臂發力，整個人俐落地懸空拉起。一下、兩下，背部肌群隨著呼吸規律地收縮舒展。\n\n「這年頭……難道就真的沒有哪怕一款能讓人沉浸進去的好遊戲了嗎？」他邊拉邊對著天空無奈嘆氣。\n\n單槓下方不遠處，兩個正在沙坑旁打滾的小鬼頭被他的動作吸引，屁顛屁顛地跑了過來。一男一女兩個小蘿蔔頭仰著臉，眼巴巴地看著主角輕輕鬆鬆在半空中起伏，眼裡閃爍著崇拜又躍躍欲試的光芒。\n\n小男生率先發起挑戰，嘿咻一聲原地起跳，兩隻肉乎乎的小手在半空中一撈——連最矮那根單槓的底部都沒摸到。\n\n旁邊綁著雙馬尾的小女生也不甘示弱，踮起腳尖蹦跳了兩下，結果離目標還差著整整兩個頭的距離。兩個小傢伙掛在下方手舞足蹈，臉憋得通紅，矮小的身板配上高聳的鐵架，滑稽得像兩隻想抓樹梢果實的小松鼠。\n\n主角在高處低頭看著他們這副徒勞無功的可愛模樣，嘴角忍不住微微上揚，剛才被免洗手遊浪費時間的煩悶，頓時消散了大半。", "2": "第二節：初遇——單槓場上的鬼角劍姬\n\n日復一日在公園拉單槓的生活，不知不覺就持續了大半年。背肌線條被磨練得愈發結實，原本平靜的生活卻在今天被徹底打破。\n\n不知是哪個動漫社團借了場地，今天的單槓區四周竟然舉辦起了一場小型的「Cosplay喵展」。原本只有散步老人與追逐小孩的社區公園，瞬間被五顏六色的假髮、誇張的道具與各路美少男少女攻佔。空氣中漂浮著定型噴霧與若有若無的香水味。\n\n就在最靠邊緣的單槓旁，靜靜佇立著一位氣場格外特別的少女。\n\n她既沒有像其他人那樣成群結隊地自拍，也沒有擺出誇張的姿勢供人圍觀，只是沉默地倚著鐵柱。那一頭張揚的櫻粉色長髮高高紮成馬尾，頭頂還頂著一對潔白如霜的鬼角。身上披著一襲寬大的黑底和服羽織，衣襬處染著灼目的赤紅火焰暗紋。\n\n最要命的是內裡的穿著——寬鬆的和服大敞著，胸前僅僅裹著幾圈緊繃的白色裹胸布，勾勒出極具壓迫感的豐滿弧度，彷彿稍微吸口氣就會徹底崩開；下身是一截極短的黑色裙襬配上透膚長筒襪，腰間隨意繫著粗繩結，肩頭還漫不經心地扛著一柄朱紅刀鞘的武士刀。\n\n……這穿著未免也太危險了吧？\n\n主角喉結動了一下，連忙把視線硬生生扯開。這年頭在公眾場合多看漂亮女生兩眼，隨時可能被扣上變態色狼的帽子。他深吸一口氣，雙手重新抓住單槓，強迫自己把注意力集中在引體向上。\n\n一、二、三……\n\n然而，那抹粉色身影就像印在腦海裡一樣揮之不去。配戴武士刀、短裙、還有那張近乎精緻到失真的臉容……真的很抓人眼球。在做完第十個時，他終究沒忍住，趁著落地的瞬間悄悄側過頭，想再往邊緣的單槓瞥上一眼。\n\n可這一瞥，他的心臟差點直接跳出喉嚨！\n\n不知何時，那個粉髮鬼角少女竟然已經悄無聲息地站在了他的身側！她的腳步輕盈得猶如鬼魅、又像傳說中訓練有素的真正忍者，踏在水泥與落葉上竟連半點窸窣聲響都沒發出。\n\n「哇啊？！」主角本就處於下槓翻轉卸力的瞬間，冷不防被近在咫尺的絕美面容嚇得魂飛魄散，腳下猛地一滑、平衡驟失，「砰」地一聲結結實實摔倒在沙地與水泥交界處。\n\n「嘶……好痛……」他狼狽地以手肘撐地想要爬起來，然而仰起頭的視線角度，卻由下而上、避無可避地先撞見了那修長筆直的黑絲大腿、危險極限的裙襬弧線……一路向上，最後撞進了那雙居高臨下、冷若冰霜的赤紅瞳孔。\n\n[CG: images/kunoichi_view.jpg | 視線由下而上……撞見那雙冷冽睥睨的紅眸]\n\n「變態……」\n\n少女垂下纖細的睫毛，居高臨下地看著趴在地上的他，薄唇輕啟，吐出了兩個冰冷得毫無溫度的音節。\n\n「不、不是！小姐妳聽我解釋！」男主角慌忙連滾帶爬地撐起身子，整張臉瞬間漲得通紅，心虛得說話都咬到了舌頭：「妹妹妳千萬別誤會！我、我真的不是故意偷看的！我只是剛翻下來腳滑……」\n\n他急忙拍著身上的灰塵，手足無措地想要自證清白。可耳邊卻再度傳來木屐踏在地面上的清脆微響——少女竟迎著他往前踏出半步。\n\n「你……還記得我？」\n\n少女的聲音又近了幾分，語氣裡的冰冷微斂，反而帶著幾分莫名認真、像是跨越了時空般的探詢與確認。\n\n主角內心瘋狂吶喊：『我的天！這該不會是什麼新型的仙人跳或街頭詐騙吧？這種走在路上回頭率百分之兩百的大美女，我這輩子除了在遊戲卡池裡運氣爆棚抽到過幾張SSR之外，現實裡哪有認識半個啊？！』\n\n他連忙擺著手，硬著頭皮回頭解釋：「沒有沒有，小姐妳絕對認錯人了！我就是個每天在這邊拉單槓的普通肥……呃，普通路人，妳——」\n\n主角的話卡在了喉嚨裡。\n\n眼前空空如也。\n\n微風吹過，幾片落葉在空蕩蕩的單槓下打了個旋。沒有粉髮、沒有鬼角、更沒有那柄朱紅色的武士刀。僅僅是眨眼與回身的一秒鐘，那個存在感無比強烈的美少女，就這樣憑空蒸發了。\n\n主角茫然地環顧四周。熱鬧的Cosplay人群在幾公尺外嬉笑拍照，彷彿剛剛站在這裡的那個人，只是一場因過度運動而產生的白日幻覺。", "3": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？\n\n洗完熱水澡，我脖子上掛著毛巾，一邊擦著濕漉漉的頭髮，一邊晃回書桌前。\n\n剛把手機扔在桌上，機身就跟觸電似地瘋狂震動起來，螢幕上接二連三地彈出訊息。\n\n「趕快下載《忍者喵喵》！一起來玩啦！」發訊人是夜雨。\n\n我拿起手機，無奈地單手打字：『那遊戲我半年前就玩過了，無聊得要死，防線紙糊的一樣，怪衝兩下就暴斃，根本是純騙課金的免洗手遊。』\n\n「怎麼會？肯定是你打開遊戲的姿勢不對！」夜雨秒回，「那你先加社群，攻略多得是。連結丟你了，進DC群看看？」\n\n『DC我本來就在裡面啊。但那裡面根本沒幾個人認真聊攻略，偶爾冒泡講的也全是我聽不懂的黑話，什麼大冰奶、麻糬、暴擊流的，不知道在打什麼啞謎。』\n\n「嘖，那去加這個！」夜雨又甩了個連結過來，「FB上面推的，叫做『河童王-忍者喵喵社群』，這群很活躍。」\n\n我盯著螢幕，眼角微微抽搐。\n\n河童王？這什麼中二又詭異的社群名稱？真的不會是奇怪的詐騙集團或是滿嘴怪話的邪教聚集地嗎？\n\n帶著半信半疑的心情點開Line社群申請連結，立刻跳出了一道身分審核頁面：\n\n[QUOTE: 【請輸入入群驗證問題】\n1. 你最喜歡的技能是什麼？\n2. 你的暱稱叫什麼？]\n\n我順手在鍵盤上敲下答案。按出送出的那半秒，我的腦袋忽然當機了一下。\n\n等等——我輸入了什麼？\n\n『技能：無糖綠；暱稱：苦無。』\n\n靠，完全填反了！我最喜歡的技能是無糖綠茶是什麼鬼？！\n\n我手忙腳亂地想取消重改，結果破爛的Line介面瞬間轉圈卡死。好不容易重啟App，趕緊重新送出了一次正確的：『技能：苦無；暱稱：無糖綠』。\n\n反正閒著也是閒著，夜雨既然都開口了，我便順手點開應用程式商店，把半年前被我無情刪除的《忍者喵喵》重新載了回來。\n\n這次我學聰明了，沒去碰那個只會柔弱求饒的冰系如月，而是選了一個操縱雷電忍術的新角色。\n\n手指在螢幕上滑動，雷電在怪群中劈啪作響，激盪出一顆顆跳躍擴散的閃電球，滿屏雷光炸裂，畫面感竟然意外地像早期的彈幕射擊遊戲《雷電》。\n\n「……咦？好像還挺爽的？」\n\n就這樣，原本只打算試玩幾分鐘的我，莫名其妙又在各個關卡和電弧閃爍中沉迷了半個月。\n\n直到半個月後的某個週末，夜雨的訊息再度轟炸過來。\n\n「喂，你到底加群了沒？我怎麼在群組名單翻半天都沒看到你？」\n\n我一手握著單槓做拉筋，一手滑著手機：『有啊，我不是早就進去了？』\n\n我看著自己手機裡的Discord頻道，心想這傢伙是不是眼花。\n\n「我是說Line群！河童王那個大群！」\n\n『呃……』我切到Line看了一眼審核頁面，狀態欄依然是一片安靜無聲的等待審核，『好像還真沒有，一直卡著沒通過的樣子。』\n\n「搞什麼啊？我去問一下幹部。」\n\n過了幾分鐘，夜雨發來一個笑到流淚的貼圖：「幹部說你之前的申請紀錄答錯問題被系統踢了啦！你趕快重新申請一次，我幫你打聲招呼。」\n\n我有些尷尬地再次送出申請。這一次，幾乎是秒通過。\n\n伴隨著一陣歡迎新人的系統提示，迎面而來的不是什麼友善的問候，而是一長串我完全看不懂的古怪ID，以及撲面而來的「新手身分洗禮」：\n\n「來了個新人？等等，這不是那個填『最喜歡的技能是無糖綠』的傢伙嗎ｗｗｗ」\n\n「笑死，把手搖飲當必殺技的勇者出現了！」\n\n「要記得我是河童王，也是這個群的王！」河童王說。\n\n「老實交代，是不是假帳號？是不是賣茶的廣告機器人？通關密語是什麼？快說！」\n\n看著群組裡七嘴八舌的拷問，為了自證清白不是詐騙，我只得硬著頭皮一一回答那些刁鑽古怪的手遊問題。\n\n一邊打字解釋，我一邊在心裡默默吐槽：\n\n其實我到現在也沒想明白，當初為什麼腦袋一抽，會覺得「無糖綠」聽起來像是一招足以毀天滅地的終極忍術。", "4": "第四節：免抽——「這次你的名字叫無糖綠嗎？」\n\n在河童王Line社群被那群滿嘴怪話的傢伙用「無糖綠勇者」的名號狠狠洗禮了一頓後，我算是徹底融入了這個沙雕氛圍拉滿的群組。\n\n每天清晨六點，遊戲伺服器準時重置。\n《忍者喵喵》雖然免洗，但福利給得還算大方——每日都有免費單抽的轉盤，以及號稱有「極低機率直接獲得主角限定特裝」的祈願池。\n\n我一手拿著剛順路從小七買的冰鎮無糖綠茶，一手面無表情地在螢幕上胡亂點擊，熟練地把所有冒著紅點的「每日免費」一鍵按了過去。\n\n不出所料，前面幾抽全是一堆綠色、紫色的最低等寶石。輪到那個號稱放了「UR特裝」的限定池時，這次的看板娘是特別裝扮的「綾」——換上了日系學生妹造型。我隨手一抽，果不其然又是顆破爛石頭。\n也是呢，免費抽怎麼可能會中？\n\n接著我順手滑過介面，把積攢的免費抽獎全給點了。就在按下最後一次確認時，螢幕突然金光大作，畫面一轉，竟然猛地跳出了稀有角色的特寫展示動畫！\n\n看來是要中了？\n畫面中浮現出一抹極其張揚的粉紅色長髮，隨風輕輕舞動，美得近乎虛幻。\n咦？粉紅色？\n等等……限定池裡的特裝「綾」有粉紅色頭髮的造型嗎？\n\n還沒等我看清立繪的細節，手機螢幕猛地一黑——《忍者喵喵》直接閃退了！\n我手忙腳亂地長按圖示重啟，結果 App 像是中邪一樣轉圈卡死，怎麼點也打不開。\n\n「靠……該死！我好不容易中了第一件限定特裝，結果你給我閃退？官方這不會不認帳吧？！」\n\n我無奈地嘆了口氣，隨手將手機螢幕按滅，鬱悶地扔回口袋。\n\n扭開瓶蓋，我仰頭猛灌了一大口無糖綠茶。冰涼苦澀的茶湯順著食道滑落，瞬間驅散了清晨的微醺睡意。\n我把空瓶放在公園長椅旁，熟練地走到那根熟悉的鐵單槓前。\n\n掌心貼上微涼粗糙的鐵管，雙臂發力，整個人俐落地懸空拉起。\n一下、兩下。\n呼氣、吸氣。\n\n日復一日的規律律動，讓肌肉在緊繃與舒展間微微發酸。四周的樹葉在晨風中沙沙作響，社區公園一片靜謐。\n\n然而，就在我拉到第七下、整個人懸在最高點的剎那——\n\n『你不記得我嗎？』\n\n一道清脆中透著慵懶、卻彷彿直接穿透耳膜的少女呢喃，毫無預兆地在我的腦海正中央驟然炸響！\n\n『誰？！』\n我不自覺地脫口問了出來，雙手下意識收緊，心臟劇烈地狂跳起來。\n\n這種陌生又熟悉的感覺到底是什麼？這股直擊靈魂深處的震顫感，絕不是普通幻聽，而是像某塊被遺忘在記憶深海裡的古老碎片被硬生生翻動了一般。\n\n還沒等我從震撼中回過神，那道嗓音帶著一絲極其淡薄的哀傷，幽幽從心底傳來：\n\n「記得來找我。我是円香……」\n「這一次，你的名字叫無糖綠嗎？」\n\n『啊？什麼這次？！円香又是誰？！』\n\n驚駭與混亂如潮水般席捲大腦，雙手的握力瞬間潰散！\n「砰！」\n我整個人完全失去了平衡，結結實實地再次摔進了單槓下方的沙坑與泥地裡。\n\n「咳……痛死了……」\n泥土與落葉濺了我一頭一臉。我甚至顧不上手肘擦破皮的火辣刺痛，慌忙地一邊用力甩著發懵的腦袋與痠麻的手臂，一邊猛地睜開雙眼——\n\n心臟在胸膛裡瘋狂跳動，呼吸急促得難以平復。\n我下意識帶著幾分莫名的期待與緊張環視四周，迫切地想知道，是不是一睜眼，又能看見那位披著赤紅烈焰和服、頭頂潔白鬼角的美麗少女，正居高臨下、用那雙冷艷赤紅的瞳孔睥睨著我……\n\n然而，微風拂面，晨光靜謐。\n眼前除了空蕩蕩的鐵單槓與幾片飄落的枯葉之外，什麼都沒有。\n\n沒有粉髮，沒有鬼角，更沒有那柄朱紅色的武士刀。\n\n空曠的公園裡，只有我自己粗重紊亂的喘息聲，以及口袋裡不知何時因為社群訊息而微微震動的手機。", "5": "第五節：狂奔的粉髮男子——「有事情要發生了」\n\n在那天莫名摔進沙坑之後，我像是著了魔一樣，每天到了固定的清晨時間就會準時走到社區公園的單槓場報到。\n\n至於《忍者喵喵》，我已經有一段時間沒能登入進去了。每當點開圖示，螢幕總是無休止地卡在「伺服器維護更新中」的提示框。我在河童王群組裡問了一圈，甚至給官方客服寄了三封回饋信，結果全都是石沉大海毫無回音。久而久之，我也懶得再去看群組裡那群傢伙講幹話了。\n\n今天剛好是週末，原本寧靜的公園竟然又聚集了不少人潮。五顏六色的假髮在樹蔭下晃動，看樣子又有 Coser 社團挑了這裡當外拍展場。\n\n我漫無目的地走在公園步道上，四處張望著。\n這裡今天可熱鬧了，路邊走過一頭綠色短髮的不知名動漫角色，另一邊還有人神還原了《獵人》裡的大傑——那根朝天豎起的大黑髮柱又粗又挺又帥氣，回頭率百分之兩百。\n\n在五彩斑斕的人群中，我的目光忽然被一抹熟悉的色彩狠狠刺痛了一下。\n\n粉色？\n真的是粉色！\n\n只見最靠邊緣的單槓旁，靜靜站著一道披著寬鬆和服羽織的身影，背後同樣斜斜綁著一柄朱紅刀鞘的武士刀，一頭張揚的粉色長髮隨風微微起伏，正伸手握在單槓上做著引體向上。\n\n是她！絕對是她！\n\n心臟驟然漏跳了半拍，我腦袋一熱，整個人拔腿就朝那根單槓衝了過去，一邊狂奔一邊扯著嗓子大喊：\n「小姐！小姐！上次真的不好意思——！」\n\n誰知道就在我喊出聲的瞬間，那個粉髮身影彷彿受了天大的驚嚇，連頭都沒回，鬆開單槓轉身就跑！\n\n「喂！等等啊！」\n我撒開雙腿死命在後面追。可對方的腳程簡直快得反常，兩條長腿邁開的頻率快如疾風，像一輛裝了渦輪引擎的跑車。任憑我如何蹬腿狂奔，彼此之間的距離非但沒有拉近，反而被越甩越遠。\n\n「呼……哈……奇怪……怎麼會這麼喘……」\n我胸膛劇烈起伏，喉嚨乾得像被火燒過一樣。我平常天天拉單槓鍛鍊背肌，體力什麼時候變得這麼差了？\n還是說……那女生的體力真的好到離譜？\n不過話說回來，體力這麼好的女生，我……我好像還真挺喜歡的。\n\n腦子裡剛閃過這個不著邊際的念頭，雙腿卻已經徹底脫力發軟。視線一陣天旋地轉，我腳下一絆，「咚」地一聲直接栽倒在草坪上昏了過去。\n\n……\n\n「先生？先生！你還好嗎？！快醒醒啊！」\n一陣焦急又低沉的呼喚聲在耳邊不斷迴盪，同時有人正慌張地拍著我的肩膀。\n\n我的意識仍陷在一片混沌與矇矓之中，眼皮沉重得完全睜不開。模糊的視野裡，隱隱約約只有一抹隨風輕晃的櫻粉色長髮映入眼簾。\n\n粉紅色頭髮……？\n難道是……剛才那位單槓場上的鬼角少女？！\n\n我的雙手虛弱地在半空中胡亂揮舞了一下，本能地想要抓住對方借力撐起身子。掌心不偏不倚，剛好按上了一團極具存在感的隆起物上。\n\n手感非常扎實。我半夢半醒間下意識地捏了捏——\n好軟？\n不對……\n這觸感怎麼硬邦邦的，簡直就像一塊被緊繃皮膚包裹著的花崗岩板磚？！\n\n「先生……你醒了嗎？」\n耳邊傳來的聲音聽起來既著急又帶著難以言喻的尷尬。\n\n我腦袋昏昏沉沉，迷迷糊糊地喃喃自語：「你……你是誰啊……」\n\n對方頓了一下，語氣異常複雜，甚至帶著一絲微顫，並沒有回答我的問題，而是低聲提醒道：\n「那個……先生，你、你抓著我的胸部。」\n\n胸部？\n迷濛間，我的腦海瞬間閃過上次跌倒時仰望看見的那抹驚心動魄的危險弧度。難道真是那位冷冰冰罵我變態的粉髮大美女？！\n出於某種難以言喻的潛意識確認，我的手指竟然又控制不住地收緊，下意識地抓了幾下。\n\n好軟？\n不對啊！這根本硬得跟練了鐵布衫一樣！\n\n電光石火間，我整個人打了個寒顫，猛地倒抽一口涼氣，雙眼瞬間瞪得滾圓！\n\n視野徹底清晰。\n眼前哪有什麼冷艷如霜的和服美少女？！\n映入眼簾的，是一位身材高大、骨架寬闊、身高逼近一米八五的健壯男子！他頭頂戴著一頂極其張揚的粉色長假髮，身上披著一件大敞的和服，而我的兩隻手……正死死按在他那兩塊線條分明、厚實飽滿、堅硬如鐵的碩大胸肌上！\n\n甚至因為剛才的劇烈運動，他的胸肌還在隨著粗重的喘息微微起伏。\n\n空氣瞬間死寂。\n我和粉髮男子四目相對。\n\n『哇啊啊啊啊啊——！！』\n殘留的睡意與迷濛在零點一秒內徹底灰飛煙滅！世界觀當場碎裂成渣，我嚇得魂飛魄散，一把抽回雙手，連滾帶爬地往後暴退，扯著嗓子放聲尖叫：\n『不要過來啊！救命啊！有變態啊！！』\n\n粉髮男子見我突然發狂，也慌忙伸手想拉我一把，焦急地喊道：\n「先生！先生你冷靜點！我……我香……」\n\n『你別過來！你才不香！你全家都不香！救命啊——！』\n光天化日之下竟然被一個穿著和服女裝、頂著粉色長髮的肌肉猛男近距離貼身照顧，我的求生本能瞬間突破極限。我根本不等他說完，手腳並用從草地上彈起來，拔腿就往公園外狂奔——要是跑慢半秒，我的清白跟屁股絕對不保！\n\n然而，對方的腳程快得匪夷所思。\n我連三個轉角都還沒繞出去，耳邊便傳來一陣呼嘯的破風聲！只見眼前粉影一閃，那堵由厚實大胸肌築成的人形高牆已經鬼魅般橫擋在前方，將我硬生生逼進了公園圍牆的死角裡。\n\n我後背貼著冰涼的牆面，雙手抱頭瑟瑟發抖，閉上眼睛絕望求饒：\n『壯士饒命！別傷害我！我身上沒錢也沒色相！』\n\n「先生……你、你的手機。」\n頭頂傳來一聲有些無奈的嘆息。\n\n『……咦？手機？』\n我小心翼翼地把眼睛睜開一條縫。\n只見那名穿著和服、留著粉色長髮的魁梧男子正神色平靜地伸出手，將一支螢幕還亮著的手機遞到了我面前——正是我剛才脫力摔倒時掉在草地上的那支。\n\n『別、別傷害我……疑？真的是手機？手機嗎？謝謝你……』\n我愣愣地把手機接了過來，整個人僵在原地，尷尬得恨不得當場用腳趾在水泥地上摳出一棟別墅。\n\n回過神來，我忍不住心有餘悸地摸了摸快跑斷的雙腿，滿臉納悶地抬頭問他：\n『不是啊……那你剛才在單槓那邊，幹嘛我一喊你就拔腿狂奔啊？！』\n\n粉髮男子一聽，臉上頓時浮現出一抹哭笑不得的崩潰神色，沒好氣地反駁道：\n「廢話！誰被一個陌生人那樣大吼大叫地衝過來追著誰不跑啊？！我又穿著女裝，你那嗓門扯得那麼大，我還以為是警察叔叔來抓人了！」\n\n『……』\n我被這過於合理的理由塞得啞口無言。\n\n我還沒完全組織好下一句反駁，眼前這位粉紅色頭髮的先生卻忽然收斂了臉上的無奈，目光直勾勾地盯著我的眼睛，語氣低沉得讓人背脊發涼：\n\n「有事情要發生了。」\n\n『什……什麼？你到底誰啊？幹嘛突然嚇我？！』我握著手機，滿頭霧水地往牆角縮了縮。\n\n男子只是深深地看了我一眼，薄唇微勾：\n「你等等就知道了。」\n\n話音未落，空氣中忽然傳來一陣極微弱的嗡鳴。\n僅僅是眨眼的一剎那，那個存在感十足的粉髮男子，竟然像被風吹散的霧氣一樣，憑空在我眼皮底下消失得無影無蹤！\n\n微風拂過空蕩蕩的牆角。\n只有我手裡握著的手機，還殘留著他剛才遞過來時手掌的餘溫，以及一股淡淡的奇異香氣。\n\n『怪人……真是有夠怪的怪人……』\n我心有餘悸地在褲子上擦了擦手機，心裡忍不住嘀咕：不過說真的，那傢伙五官長得確實挺帥的，扮起女裝來……居然意外地還挺好看？\n\n就在這個念頭剛冒出來的瞬間，掌心裡的手機螢幕突然劇烈震動起來——\n原本卡死多日、顯示無法連線的《忍者喵喵》，竟然毫無預兆地自己彈開了。"};
 
     let manifestData = [];
     let currentChapterId = 1;
+    const STORAGE_KEY = 'nyannyan_shinobi_last_read_id';
 
-    // 將純文字解析為結構化 HTML
+    // 解析純文字檔為閱讀 HTML
     function parseNovelTextToHtml(rawText) {
       const lines = rawText.trim().split(/\r?\n/);
       if (lines.length === 0) return '';
@@ -701,7 +660,6 @@
         const line = bodyLines[i].trim();
         if (!line) continue;
 
-        // 處理多行 [QUOTE: ...] 語法
         if (line.startsWith('[QUOTE:')) {
           inQuote = true;
           const content = line.replace(/^\[QUOTE:\s*/, '');
@@ -725,7 +683,6 @@
           continue;
         }
 
-        // 處理插圖語法 [CG: 圖片路徑 | 圖片說明]
         if (line.startsWith('[CG:') && line.endsWith(']')) {
           const inner = line.slice(4, -1).trim();
           const parts = inner.split('|');
@@ -742,13 +699,11 @@
           continue;
         }
 
-        // 特殊台詞強調
         if (line === '「變態……」') {
           htmlOutput += `<p class="dialogue-critical">${line}</p>`;
           continue;
         }
 
-        // 一般小說段落
         htmlOutput += `<p>${line}</p>`;
       }
 
@@ -756,7 +711,28 @@
       return htmlOutput;
     }
 
-    // 初始化載入章節清單
+    // 讀取並更新「上次讀到哪裡」進度提示
+    function updateLastReadUI() {
+      const savedId = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+      const labelEl = document.getElementById('progress-label');
+      const titleEl = document.getElementById('progress-title');
+      const btnEl = document.getElementById('progress-action-btn');
+
+      if (savedId && manifestData.some(x => x.id === savedId)) {
+        const item = manifestData.find(x => x.id === savedId);
+        labelEl.innerText = `📖 上次讀到（${item.label}）`;
+        titleEl.innerText = item.title;
+        btnEl.innerText = '繼續閱讀 →';
+        btnEl.onclick = () => openChapter(item.id);
+      } else if (manifestData.length > 0) {
+        const first = manifestData[0];
+        labelEl.innerText = '✨ 尚未開始閱讀';
+        titleEl.innerText = first.title;
+        btnEl.innerText = '從第一節開始 →';
+        btnEl.onclick = () => openChapter(first.id);
+      }
+    }
+
     async function initSite() {
       try {
         const res = await fetch('chapters/manifest.json');
@@ -766,60 +742,68 @@
         manifestData = fallbackManifest;
       }
 
-      renderNavigationAndCards();
+      // 確保嚴格照 id (1, 2, 3, 4, 5...) 正常順序排列
+      manifestData.sort((a, b) => a.id - b.id);
+
+      document.getElementById('toc-count-label').innerText = `共 ${manifestData.length} 節`;
+      renderNavigationAndList();
+      updateLastReadUI();
     }
 
-    function renderNavigationAndCards() {
+    function renderNavigationAndList() {
       const navContainer = document.getElementById('nav-tabs-container');
-      const gridContainer = document.getElementById('chapters-grid-container');
+      const listContainer = document.getElementById('chapters-list-container');
+      const savedId = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+
+      // 清空原有動態項目（保留首頁按鈕）
+      navContainer.innerHTML = `<button class="tab-btn active" id="tab-home" onclick="switchView('home')">目錄首頁</button>`;
+      listContainer.innerHTML = '';
 
       manifestData.forEach(item => {
-        // 生成頂部導航按鈕
+        // 頂部導航分頁按鈕
         const btn = document.createElement('button');
-        btn.className = 'tab-btn' + (item.isFocus ? ' tab-focus' : '');
+        btn.className = 'tab-btn';
         btn.id = 'tab-ch' + item.id;
         btn.innerText = item.tabTitle;
         btn.onclick = () => openChapter(item.id);
         navContainer.appendChild(btn);
 
-        // 生成首頁卡片
+        // 章節項目卡片（電腦版卡片 / 手機版橫向清單）
+        const isLast = (item.id === savedId);
         const card = document.createElement('div');
-        card.className = 'chapter-card';
-        if (item.isFocus) {
-          card.style.borderColor = 'rgba(244, 63, 94, 0.45)';
-        }
+        card.className = 'chapter-item' + (isLast ? ' is-last-read' : '');
         card.onclick = () => openChapter(item.id);
 
-        let tagClass = 'episode-tag';
-        if (item.isFocus) tagClass += ' highlight';
-        else if (item.badge.includes('最新')) tagClass += ' latest';
-
         card.innerHTML = `
-          <div class="card-thumb">
+          <div class="item-thumb">
             <img src="${item.cover}" alt="${item.title}" loading="lazy">
-            <span class="${tagClass}">${item.badge}</span>
           </div>
-          <div class="card-body">
-            <h3 class="card-title">${item.title}</h3>
-            <p class="card-text">${item.desc}</p>
-            <div class="card-action">展開閱讀 <span>→</span></div>
+          <div class="item-body">
+            <div class="item-meta">
+              <span class="ep-num">${item.label}</span>
+              ${isLast ? '<span class="last-read-badge">上次閱讀</span>' : ''}
+            </div>
+            <h3 class="item-title">${item.title}</h3>
+            <p class="item-desc">${item.desc}</p>
           </div>
+          <div class="item-arrow-mobile">›</div>
         `;
-        gridContainer.appendChild(card);
+        listContainer.appendChild(card);
       });
     }
 
     function switchView(view) {
       const homeView = document.getElementById('home-view');
       const readerView = document.getElementById('reader-view');
-      const tabHome = document.getElementById('tab-home');
 
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 
       if (view === 'home') {
         homeView.style.display = 'block';
         readerView.style.display = 'none';
-        tabHome.classList.add('active');
+        renderNavigationAndList();
+        updateLastReadUI();
+        document.getElementById('tab-home').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         homeView.style.display = 'none';
@@ -832,6 +816,9 @@
       if (!item) return;
 
       currentChapterId = chId;
+      // 記錄上次閱讀進度到瀏覽器 localStorage
+      localStorage.setItem(STORAGE_KEY, chId);
+
       switchView('reader');
 
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -853,41 +840,36 @@
 
       targetDiv.innerHTML = parseNovelTextToHtml(rawText);
 
-      // 依序號 1 -> 2 -> 3 -> 4 -> 5 控制上一節 / 下一節
-      const maxId = Math.max(...manifestData.map(x => x.id));
-      const minId = Math.min(...manifestData.map(x => x.id));
-      document.getElementById('prev-btn').style.display = (chId <= minId) ? 'none' : 'inline-flex';
-      document.getElementById('next-btn').style.display = (chId >= maxId) ? 'none' : 'inline-flex';
+      const currentIndex = manifestData.findIndex(x => x.id === chId);
+      document.getElementById('prev-btn').style.display = (currentIndex <= 0) ? 'none' : 'inline-flex';
+      document.getElementById('next-btn').style.display = (currentIndex >= manifestData.length - 1) ? 'none' : 'inline-flex';
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function turnPage(offset) {
-      const targetId = currentChapterId + offset;
-      if (manifestData.some(x => x.id === targetId)) {
-        openChapter(targetId);
+      const currentIndex = manifestData.findIndex(x => x.id === currentChapterId);
+      const targetIndex = currentIndex + offset;
+      if (targetIndex >= 0 && targetIndex < manifestData.length) {
+        openChapter(manifestData[targetIndex].id);
       }
     }
 
     function openModal(src, caption) {
       const modal = document.getElementById('lightboxModal');
-      const modalImg = document.getElementById('modalImg');
-      const modalCap = document.getElementById('modalCaption');
-      modalImg.src = src;
-      modalCap.innerText = caption;
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').innerText = caption;
       modal.classList.add('active');
     }
 
-    function closeModal(e) {
-      const modal = document.getElementById('lightboxModal');
-      modal.classList.remove('active');
+    function closeModal() {
+      document.getElementById('lightboxModal').classList.remove('active');
     }
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
 
-    // 啟動網站
     initSite();
   </script>
 </body>
