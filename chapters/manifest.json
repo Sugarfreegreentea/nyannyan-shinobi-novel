@@ -2,46 +2,51 @@
   {
     "id": 1,
     "file": "chapters/chapter_01.txt",
-    "label": "EP.01",
+    "label": "EPISODE 01",
     "tabTitle": "第一節",
     "title": "第一節：無聊的擦邊廣告——《忍者喵喵》",
-    "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的求饒廣告，與社區單槓場的午後。",
-    "cover": "images/cg_blade.jpg"
+    "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的哭喊求饒，與公園單槓場的悠閒午後。",
+    "cover": "images/cg_blade.jpg",
+    "badge": "EP.01"
   },
   {
     "id": 2,
     "file": "chapters/chapter_02.txt",
-    "label": "EP.02",
+    "label": "EPISODE 02",
     "tabTitle": "第二節",
     "title": "第二節：初遇——單槓場上的鬼角劍姬",
-    "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒後的仰視視角……「變態……」，與離奇蒸發的少女。",
-    "cover": "images/kunoichi_view.jpg"
+    "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒時由黑絲長腿仰望而上的視線……「變態……」與驟然蒸發的殘影。",
+    "cover": "images/kunoichi_view.jpg",
+    "badge": "EP.02"
   },
   {
     "id": 3,
     "file": "chapters/chapter_03.txt",
-    "label": "EP.03",
+    "label": "EPISODE 03",
     "tabTitle": "第三節",
     "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？",
-    "desc": "手滑把「無糖綠」填成必殺技的烏龍；雷電滿屏刷怪，與河童王大群的熱烈拷問。",
-    "cover": "images/cg_throne.jpg"
+    "desc": "手滑把「無糖綠」填入入群問題的烏龍，與被河童王社群全員當作賣茶機器人的熱烈拷問。",
+    "cover": "images/cg_throne.jpg",
+    "badge": "EP.03"
   },
   {
     "id": 4,
     "file": "chapters/chapter_04.txt",
-    "label": "EP.04",
+    "label": "EPISODE 04",
     "tabTitle": "第四節",
     "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」",
-    "desc": "每日免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的呢喃——「我是円香。」",
-    "cover": "images/cg_stance.jpg"
+    "desc": "日常免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的靈魂呢喃——「記得來找我，我是円香。」",
+    "cover": "images/cg_stance.jpg",
+    "badge": "EP.04"
   },
   {
     "id": 5,
     "file": "chapters/chapter_05.txt",
-    "label": "EP.05",
+    "label": "EPISODE 05",
     "tabTitle": "第五節",
     "title": "第五節：狂奔的粉髮男子——「有事情要發生了」",
-    "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的胸肌！公園大逃殺與預言。",
-    "cover": "images/cg_sakura.jpg"
+    "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的堅硬大胸肌！公園大逃殺與神祕預言。",
+    "cover": "images/cg_sakura.jpg",
+    "badge": "EP.05"
   }
 ]
