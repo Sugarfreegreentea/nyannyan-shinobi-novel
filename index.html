@@ -662,6 +662,47 @@
       .reader-card { padding: 30px 18px; }
       .novel-body p { font-size: 1.02rem; text-indent: 1.8em; }
     }
+
+    /* LINE 手機群組對話小框樣式 */
+.chat-widget {
+  max-width: 440px;
+  margin: 32px auto;
+  background: #ffffff;
+  border: 1px solid #dce5da;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  font-family: "Noto Sans TC", sans-serif;
+}
+.chat-widget-header {
+  background: #e8efe6;
+  padding: 18px 16px 14px;
+  text-align: center;
+  border-bottom: 1px solid #d5e0d2;
+}
+.chat-widget-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+.chat-widget-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+.chat-msg-list { padding: 10px 18px 14px; background: #ffffff; }
+.chat-msg-item { padding: 11px 0; border-bottom: 1px solid #f1f5f9; }
+.chat-msg-item:last-child { border-bottom: none; }
+.chat-msg-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.chat-sender { font-weight: 800; font-size: 0.9rem; color: #0f172a; }
+.chat-sender.sys { color: #0284c7; }
+.chat-time { font-size: 0.74rem; color: #94a3b8; }
+.chat-text { font-size: 0.9rem; color: #334155; line-height: 1.55; text-indent: 0 !important; margin: 0 !important; }
   </style>
 </head>
 <body>
@@ -1089,10 +1130,16 @@
       }
     }
 
-    function parseNovelText(text) {
+function parseNovelText(text) {
       const lines = text.split('\n');
       let html = '';
       let isFirstTitle = true;
+
+      // 群組聊天室狀態變數
+      let inChat = false;
+      let chatGroupTitle = '';
+      let chatGroupAvatar = '';
+      let chatMessages = [];
 
       for (let line of lines) {
         line = line.trim();
@@ -1104,6 +1151,53 @@
           continue;
         }
 
+        // 1. 偵測群組聊天開始標籤：[CHAT_START: 群組名稱 | 頭像路徑]
+        if (line.startsWith('[CHAT_START:') && line.endsWith(']')) {
+          inChat = true;
+          const inner = line.slice(12, -1).trim();
+          const parts = inner.split('|');
+          chatGroupTitle = parts[0] ? parts[0].trim() : '社群聊天室';
+          chatGroupAvatar = parts[1] ? parts[1].trim() : 'images/BG_GROUP_01.JPG';
+          chatMessages = [];
+          continue;
+        }
+
+        // 2. 處理群組聊天內容與結束標籤
+        if (inChat) {
+          if (line === '[CHAT_END]') {
+            inChat = false;
+            let msgHtml = '';
+            chatMessages.forEach(m => {
+              const isSys = m.sender.includes('系統') ? 'sys' : '';
+              msgHtml += `
+                <div class="chat-msg-item">
+                  <div class="chat-msg-top">
+                    <span class="chat-sender ${isSys}">${escapeHtml(m.sender)}</span>
+                    <span class="chat-time">${escapeHtml(m.time)}</span>
+                  </div>
+                  <p class="chat-text">${escapeHtml(m.text)}</p>
+                </div>`;
+            });
+            html += `
+              <div class="chat-widget">
+                <div class="chat-widget-header">
+                  <div class="chat-widget-title">${escapeHtml(chatGroupTitle)}</div>
+                  <img src="${chatGroupAvatar}" class="chat-widget-avatar" onerror="this.style.display='none'">
+                </div>
+                <div class="chat-msg-list">${msgHtml}</div>
+              </div>`;
+          } else {
+            const mParts = line.split('|');
+            chatMessages.push({
+              sender: mParts[0] ? mParts[0].trim() : '成員',
+              text: mParts[1] ? mParts[1].trim() : '',
+              time: mParts[2] ? mParts[2].trim() : ''
+            });
+          }
+          continue;
+        }
+
+        // 3. 處理圖片標籤：[CG: 圖片路徑 | 說明文字]
         const cgMatch = line.match(/^\[CG:\s*(.*?)\s*\|\s*(.*?)\]$/);
         if (cgMatch) {
           const imgSrc = cgMatch[1];
@@ -1119,12 +1213,14 @@
           continue;
         }
 
+        // 4. 處理引用框標籤
         const quoteMatch = line.match(/^\[QUOTE:\s*([\s\S]*?)\]$/);
         if (quoteMatch) {
           html += `<div class="quote-box">${escapeHtml(quoteMatch[1]).replace(/\\n/g, '<br>')}</div>`;
           continue;
         }
 
+        // 5. 一般內文段落
         html += `<p>${escapeHtml(line)}</p>`;
       }
 
