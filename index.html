@@ -6,25 +6,28 @@
   <title>《忍者喵喵》同人小說錄・線上閱讀</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(226, 232, 240, 0.85);
       --text-main: #0f172a;
       --text-sub: #64748b;
       --text-article: #1e293b;
       --cherry: #f43f5e;
       --cherry-light: #ffe4e6;
+      --cherry-hover: #e11d48;
       --sky: #0ea5e9;
+      --sky-light: #e0f2fe;
       --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #fb7185 50%, #38bdf8 100%);
+      --accent-glow: rgba(244, 63, 94, 0.22);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 35%, #ffffff 100%);
+      background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 30%, #ffffff 100%);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', "Noto Sans TC", sans-serif;
       min-height: 100vh;
@@ -32,7 +35,7 @@
       scroll-behavior: smooth;
     }
 
-    /* 頂部導航欄 */
+    /* 頂部導航欄 - 手機自適應防擠壓變形 */
     .top-nav {
       position: sticky;
       top: 0;
@@ -45,7 +48,7 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
       gap: 14px;
     }
     .brand {
@@ -67,11 +70,11 @@
       letter-spacing: 0.5px;
     }
     .brand-name {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 800;
     }
 
-    /* 導航標籤 */
+    /* 標籤群組：支援手機端平滑橫向滾動，永不變形折行 */
     .nav-tabs {
       display: flex;
       gap: 6px;
@@ -89,7 +92,7 @@
     .nav-tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
-      padding: 6px 14px;
+      padding: 7px 15px;
       border: none;
       background: transparent;
       color: var(--text-sub);
@@ -105,205 +108,229 @@
     .tab-btn.active {
       background: #ffffff;
       color: var(--cherry);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .tab-btn.tab-focus {
+      background: rgba(244, 63, 94, 0.1);
+      color: var(--cherry);
+    }
+    .tab-btn.tab-focus.active {
+      background: var(--accent-gradient);
+      color: #ffffff;
     }
 
-    /* 清爽作品簡介區（無多餘焦點大圖） */
-    .intro-header {
-      max-width: 1000px;
-      margin: 36px auto 28px auto;
-      padding: 0 20px;
-    }
-    .intro-card {
-      background: #ffffff;
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 28px 32px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03);
-      display: flex;
-      justify-content: space-between;
+    /* 首頁英雄展示區 */
+    .hero-container {
+      max-width: 1140px;
+      margin: 40px auto 50px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
       align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
     }
-    .intro-info { flex: 1; min-width: 260px; }
-    .intro-tag {
-      display: inline-block;
-      padding: 4px 12px;
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
       background: var(--cherry-light);
       color: #e11d48;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 18px;
+      width: fit-content;
     }
-    .intro-title {
+    .hero-title {
       font-family: 'Noto Serif TC', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-size: clamp(2.1rem, 4vw, 3.1rem);
       font-weight: 900;
+      line-height: 1.3;
       color: #0f172a;
-      margin-bottom: 8px;
+      margin-bottom: 18px;
     }
-    .intro-desc {
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
       color: var(--text-sub);
+      margin-bottom: 30px;
+      line-height: 1.75;
+    }
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 26px;
+      background: var(--accent-gradient);
+      color: #fff;
+      font-weight: 700;
       font-size: 0.95rem;
-      line-height: 1.65;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px var(--accent-glow);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(244, 63, 94, 0.35);
     }
 
-    /* 上次閱讀記憶提示條 */
-    .resume-banner {
-      max-width: 1000px;
-      margin: 0 auto 24px auto;
-      padding: 0 20px;
-      display: none;
+    /* 右側立體卡片 */
+    .hero-card-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
     }
-    .resume-box {
-      background: linear-gradient(135deg, #fff1f2 0%, #f0f9ff 100%);
-      border: 1px solid #fecdd3;
-      border-radius: 14px;
-      padding: 14px 20px;
+    .card-ambient-glow {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      background: radial-gradient(circle, rgba(251, 113, 133, 0.25) 0%, rgba(56, 189, 248, 0.2) 60%, transparent 80%);
+      filter: blur(40px);
+      z-index: 1;
+    }
+    .hero-preview-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      transition: transform 0.35s ease;
+      cursor: pointer;
+    }
+    .hero-preview-card:hover { transform: translateY(-5px); }
+    .preview-img-container {
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      background: #f1f5f9;
+    }
+    .preview-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease;
+    }
+    .hero-preview-card:hover .preview-img-container img { transform: scale(1.03); }
+    .preview-footer {
+      padding: 16px 20px;
+      background: #ffffff;
+      border-top: 1px solid #f1f5f9;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
     }
-    .resume-text {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #1e293b;
-    }
-    .resume-btn {
-      padding: 8px 18px;
-      background: var(--cherry);
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-      font-family: inherit;
-    }
-    .resume-btn:hover { background: #e11d48; }
+    .preview-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; }
+    .preview-tag { font-size: 0.8rem; font-weight: 600; color: var(--cherry); }
 
-    /* 章節目錄（電腦版雙欄網格，手機版自動轉為橫向緊湊列表） */
+    /* 快捷章節卡片網格 */
     .section-container {
-      max-width: 1000px;
-      margin: 0 auto 70px auto;
-      padding: 0 20px;
+      max-width: 1140px;
+      margin: 0 auto 60px auto;
+      padding: 0 24px;
     }
-    .section-title-bar {
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-    .section-h2 { font-size: 1.3rem; font-weight: 800; color: #0f172a; }
-    .section-count { font-size: 0.85rem; color: var(--text-sub); }
-
+    .section-title-bar { margin-bottom: 24px; }
+    .section-h2 { font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+    .section-desc { color: var(--text-sub); font-size: 0.95rem; }
     .chapters-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
     }
     .chapter-card {
       background: #ffffff;
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.02);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
     }
     .chapter-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
       border-color: #cbd5e1;
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
     }
     .card-thumb {
       position: relative;
       width: 100%;
-      height: 170px;
+      height: 190px;
       overflow: hidden;
-      background: #f1f5f9;
+      background: #f8fafc;
     }
     .card-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top center;
+      transition: transform 0.4s ease;
     }
+    .chapter-card:hover .card-thumb img { transform: scale(1.05); }
     .episode-tag {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.74rem;
+      top: 12px;
+      left: 12px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
       font-weight: 800;
       background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
       color: #334155;
     }
-    .last-read-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.74rem;
-      font-weight: 800;
-      background: var(--cherry);
+    .episode-tag.highlight {
+      background: linear-gradient(135deg, #f43f5e, #fb7185);
       color: #ffffff;
     }
     .card-body {
-      padding: 18px 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
-    .card-text {
-      color: var(--text-sub);
-      font-size: 0.88rem;
-      line-height: 1.55;
-      margin-bottom: 12px;
-      flex: 1;
-    }
-    .card-action {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--cherry);
-    }
+    .card-title { font-size: 1.05rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; line-height: 1.45; }
+    .card-text { color: var(--text-sub); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; flex: 1; }
+    .card-action { font-size: 0.88rem; font-weight: 700; color: var(--cherry); display: flex; align-items: center; gap: 6px; }
 
     /* 內嵌沉浸式閱讀器 */
     .reader-wrapper {
-      max-width: 820px;
-      margin: 28px auto 80px auto;
-      padding: 0 18px;
+      max-width: 860px;
+      margin: 30px auto 80px auto;
+      padding: 0 20px;
       display: none;
     }
     .reader-card {
       background: #ffffff;
       border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 44px 36px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04);
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 48px rgba(15, 23, 42, 0.05);
+      position: relative;
     }
     .reader-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 18px;
-      margin-bottom: 26px;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
       border-bottom: 1px solid #f1f5f9;
     }
     .reader-breadcrumb {
@@ -313,22 +340,22 @@
       font-size: 0.9rem;
       color: var(--text-sub);
     }
-    .reader-back-btn { color: var(--cherry); font-weight: 700; cursor: pointer; }
+    .reader-back-btn { color: var(--cherry); font-weight: 700; cursor: pointer; text-decoration: none; }
     .chapter-heading {
       font-family: 'Noto Serif TC', serif;
-      font-size: clamp(1.45rem, 3vw, 1.95rem);
+      font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 900;
       color: #0f172a;
       line-height: 1.38;
-      margin-bottom: 28px;
-      padding-bottom: 14px;
+      margin-bottom: 30px;
+      padding-bottom: 16px;
       border-bottom: 2px solid var(--cherry-light);
     }
     .novel-body p {
       font-size: 1.08rem;
       line-height: 2.05;
       color: var(--text-article);
-      margin-bottom: 1.55em;
+      margin-bottom: 1.6em;
       text-indent: 2em;
       letter-spacing: 0.4px;
     }
@@ -341,137 +368,249 @@
       font-style: italic;
       color: #334155;
       font-size: 1rem;
-      white-space: pre-line;
     }
-    .dialogue-critical {
-      text-indent: 0 !important;
-      font-size: 1.55rem;
-      font-weight: 900;
-      color: #e11d48;
-      text-align: center;
-      letter-spacing: 5px;
-      margin: 34px 0;
-    }
-
-    /* LINE 手機群組對話小框樣式 ([CHAT_START: ...] ... [CHAT_END]) */
-    .chat-widget {
-      max-width: 440px;
-      margin: 32px auto;
-      background: #ffffff;
-      border: 1px solid #dce5da;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
-      font-family: "Noto Sans TC", sans-serif;
-    }
-    .chat-widget-header {
-      background: #e8efe6;
-      padding: 18px 16px 14px;
-      text-align: center;
-      border-bottom: 1px solid #d5e0d2;
-    }
-    .chat-widget-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
-    .chat-widget-avatar {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      border: 3px solid #ffffff;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      background: #ffffff;
-    }
-    .chat-msg-list {
-      padding: 10px 18px 14px;
-      background: #ffffff;
-    }
-    .chat-msg-item {
-      padding: 11px 0;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .chat-msg-item:last-child { border-bottom: none; }
-    .chat-msg-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .chat-sender {
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: #0f172a;
-    }
-    .chat-sender.sys {
-      color: #0284c7;
-    }
-    .chat-time {
-      font-size: 0.74rem;
-      color: #94a3b8;
-    }
-    .chat-text {
-      font-size: 0.9rem;
-      color: #334155;
-      line-height: 1.55;
-      text-indent: 0 !important;
-      margin: 0 !important;
-      letter-spacing: 0 !important;
-    }
-
-    /* 插圖框 */
     .cg-container {
-      margin: 34px 0;
+      margin: 36px 0;
       display: flex;
       justify-content: center;
     }
     .cg-frame {
-      max-width: 500px;
+      max-width: 520px;
       width: 100%;
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
+    .cg-frame:hover { transform: translateY(-4px); }
     .novel-cg { width: 100%; height: auto; display: block; }
     .cg-caption {
-      padding: 10px 14px;
+      padding: 12px 16px;
       text-align: center;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-sub);
       background: #f8fafc;
       border-top: 1px solid #f1f5f9;
       font-weight: 600;
     }
-
     .reader-nav-controls {
       display: flex;
       justify-content: space-between;
-      margin-top: 44px;
-      padding-top: 22px;
+      margin-top: 48px;
+      padding-top: 24px;
       border-top: 1px solid #f1f5f9;
     }
     .page-turn-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 10px;
       border: 1px solid var(--card-border);
       background: #ffffff;
       color: var(--text-main);
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       cursor: pointer;
+      transition: all 0.2s ease;
       font-family: inherit;
     }
     .page-turn-btn:hover {
       border-color: var(--cherry);
       color: var(--cherry);
+      transform: translateY(-2px);
+    }
+
+    /* 讀者留言板區塊 */
+    .comments-section {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 2px dashed #e2e8f0;
+    }
+    .comments-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .comments-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comments-count-badge {
+      background: var(--cherry-light);
+      color: var(--cherry);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .comment-form-box {
+      background: #f8fafc;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+    .comment-identity-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .comment-input-name {
+      flex: 1;
+      min-width: 180px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .comment-input-name:focus, .comment-textarea:focus {
+      border-color: var(--cherry);
+    }
+    .identity-quick-btns {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .quick-id-btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text-sub);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .quick-id-btn:hover {
+      border-color: var(--sky);
+      color: var(--sky);
+      background: var(--sky-light);
+    }
+    .comment-textarea {
+      width: 100%;
+      min-height: 92px;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #ffffff;
+      color: var(--text-main);
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .comment-submit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .comment-hint {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+    .comment-submit-btn {
+      padding: 10px 22px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--accent-glow);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .comment-submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(244, 63, 94, 0.32);
+    }
+    .comment-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .comment-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 18px;
+      transition: border-color 0.2s;
+    }
+    .comment-item:hover {
+      border-color: #cbd5e1;
+    }
+    .comment-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+    .comment-author {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .author-tag-serial {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--sky);
+      background: var(--sky-light);
+      padding: 1px 8px;
+      border-radius: 6px;
+    }
+    .comment-time {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    .comment-body {
+      font-size: 0.95rem;
+      color: var(--text-article);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .comments-empty {
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--text-sub);
+      font-size: 0.92rem;
+      background: #f8fafc;
+      border-radius: 12px;
     }
 
     /* 燈箱大圖 */
@@ -482,86 +621,45 @@
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.25s ease;
     }
-    .lightbox-modal.active { display: flex; }
-    .lightbox-img { max-width: 90vw; max-height: 84vh; border-radius: 12px; }
-    .lightbox-caption { margin-top: 12px; font-size: 0.98rem; color: #f8fafc; font-weight: 600; }
-    .lightbox-close { position: absolute; top: 22px; right: 28px; font-size: 2.2rem; color: #e2e8f0; cursor: pointer; }
+    .lightbox-modal.active { display: flex; opacity: 1; }
+    .lightbox-img {
+      max-width: 90vw; max-height: 84vh;
+      border-radius: 12px;
+      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .lightbox-caption { margin-top: 14px; font-size: 1rem; color: #f8fafc; font-weight: 600; letter-spacing: 0.5px; }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 32px;
+      font-size: 2.2rem; color: #e2e8f0; cursor: pointer; user-select: none;
+    }
+    .lightbox-close:hover { color: var(--cherry); }
 
     footer {
       text-align: center;
-      padding: 32px 20px;
+      padding: 36px 20px;
       color: #94a3b8;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       border-top: 1px solid #e2e8f0;
       background: #ffffff;
     }
 
-    /* 手機版專屬自適應：橫向緊湊列表，一螢幕輕鬆瀏覽全章節 */
-    @media (max-width: 768px) {
-      .top-nav {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 10px 14px;
-        gap: 8px;
-      }
+    @media (max-width: 860px) {
+      .top-nav { flex-direction: column; align-items: stretch; padding: 10px 16px; gap: 10px; }
       .brand { justify-content: center; }
-      .nav-tabs { width: 100%; justify-content: flex-start; }
-      .intro-card { padding: 20px; }
-      .chapters-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .chapter-card {
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
-        border-radius: 14px;
-      }
-      .card-thumb {
-        width: 82px;
-        height: 82px;
-        border-radius: 10px;
-        flex-shrink: 0;
-      }
-      .episode-tag {
-        top: 4px;
-        left: 4px;
-        padding: 2px 6px;
-        font-size: 0.65rem;
-      }
-      .last-read-badge {
-        top: auto;
-        bottom: 4px;
-        right: 4px;
-        padding: 2px 6px;
-        font-size: 0.65rem;
-      }
-      .card-body {
-        padding: 2px 4px 2px 12px;
-        min-width: 0;
-      }
-      .card-title {
-        font-size: 0.96rem;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .card-text {
-        font-size: 0.82rem;
-        margin-bottom: 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .card-action { display: none; }
-      .reader-card { padding: 26px 16px; }
+      .nav-tabs { width: 100%; justify-content: flex-start; padding: 4px; }
+      .hero-container { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+      .hero-tag { margin: 0 auto 16px auto; }
+      .hero-subtitle { margin: 0 auto 28px auto; }
+      .cta-row { justify-content: center; }
+      .reader-card { padding: 30px 18px; }
       .novel-body p { font-size: 1.02rem; text-indent: 1.8em; }
     }
   </style>
@@ -574,40 +672,57 @@
       <span class="brand-badge">NOVEL</span>
       <span class="brand-name">忍者喵喵</span>
     </div>
-    <div class="nav-tabs" id="nav-tabs-container">
-      <button class="tab-btn active" id="tab-home" onclick="switchView('home')">目錄總覽</button>
+    <div class="nav-tabs" id="navTabsContainer">
+      <button class="tab-btn active" id="tab-home" onclick="switchView('home')">首頁總覽</button>
     </div>
   </header>
 
-  <!-- 首頁視圖 -->
+  <!-- 首頁主視覺視圖 -->
   <div id="home-view">
-    <div class="intro-header">
-      <div class="intro-card">
-        <div class="intro-info">
-          <span class="intro-tag">✦ 都市日常 × 異界劍姬</span>
-          <h1 class="intro-title">《忍者喵喵》同人小說錄</h1>
-          <p class="intro-desc">
-            原本只是個擦邊免洗塔防手遊，直到社區公園單槓場上出現了身著破格和服的鬼角少女，以及那個畫風清奇的「河童王」社群……
-          </p>
+    <main class="hero-container">
+      <div class="hero-text-block">
+        <div class="hero-tag">
+          <span>✦</span>
+          <span>都市日常與異界劍姬的邂逅</span>
+        </div>
+        <h1 class="hero-title">
+          拉單槓的午後散策，<br>
+          遇見<span class="gradient-text">單槓場上的鬼角劍姬</span>
+        </h1>
+        <p class="hero-subtitle">
+          原以為只是個常見的劣質手遊廣告，直到在平靜的社區公園單槓區旁，迎面走來那名身著破格和服羽織、步伐如忍術般輕巧無聲的少女……
+        </p>
+        <div class="cta-row">
+          <button class="btn-main" onclick="openChapter(2)">進入焦點：單槓場初遇 →</button>
+          <button class="btn-main" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border); box-shadow: none;" onclick="openChapter(5)">最新續篇：第五節</button>
         </div>
       </div>
-    </div>
 
-    <!-- 自動記憶上次閱讀進度條 -->
-    <div class="resume-banner" id="resume-banner">
-      <div class="resume-box">
-        <div class="resume-text" id="resume-label">📖 上次讀到：第一節</div>
-        <button class="resume-btn" id="resume-btn">繼續閱讀 →</button>
+      <!-- 右側卡片展示 -->
+      <div class="hero-card-wrap">
+        <div class="card-ambient-glow"></div>
+        <div class="hero-preview-card" onclick="openChapter(2)">
+          <div class="preview-img-container">
+            <img src="images/cg_sakura.jpg" alt="落櫻側顏特寫">
+          </div>
+          <div class="preview-footer">
+            <div class="preview-title">落櫻流轉・側顏之謎</div>
+            <div class="preview-tag">點擊進入第二節 ✦</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
 
-    <!-- 章節目錄 -->
+    <!-- 章節瀏覽選單 -->
     <section class="section-container">
       <div class="section-title-bar">
-        <h2 class="section-h2">全部章節</h2>
-        <span class="section-count" id="chapter-count-label">共 5 節</span>
+        <h2 class="section-h2">章節目錄</h2>
+        <p class="section-desc">點擊卡片即可直接在本頁展開沉浸式閱讀，每節下方皆設有專屬讀者留言板</p>
       </div>
-      <div class="chapters-grid" id="chapters-grid-container"></div>
+
+      <div class="chapters-grid" id="chaptersGridContainer">
+        <!-- 動態載入章節卡片 -->
+      </div>
     </section>
   </div>
 
@@ -616,25 +731,58 @@
     <article class="reader-card">
       <div class="reader-toolbar">
         <div class="reader-breadcrumb">
-          <span class="reader-back-btn" onclick="switchView('home')">← 返回目錄</span>
+          <span class="reader-back-btn" onclick="switchView('home')">← 返回章節總覽</span>
           <span>/</span>
           <span id="reader-ep-label" style="font-weight: 700; color: var(--cherry);">EPISODE 01</span>
         </div>
-        <div style="font-size: 0.85rem; color: var(--text-sub);">已自動儲存閱讀進度</div>
+        <div style="font-size: 0.88rem; color: var(--text-sub);">
+          點擊插圖可放大預覽
+        </div>
       </div>
 
-      <div id="reader-content-target"></div>
+      <div id="reader-content-target">
+        <!-- 動態解析正文與 [CG: ...] 標籤 -->
+      </div>
 
       <div class="reader-nav-controls">
         <button class="page-turn-btn" id="prev-btn" onclick="turnPage(-1)">← 上一節</button>
-        <button class="page-turn-btn" onclick="switchView('home')">回目錄</button>
+        <button class="page-turn-btn" style="border-color: #cbd5e1;" onclick="switchView('home')">回目錄</button>
         <button class="page-turn-btn" id="next-btn" onclick="turnPage(1)">下一節 →</button>
       </div>
+
+      <!-- 本章節專屬匿名/暱稱留言區 -->
+      <section class="comments-section" id="commentsSection">
+        <div class="comments-header">
+          <div class="comments-title">
+            <span>💬 本節讀者留言板</span>
+            <span class="comments-count-badge" id="commentsCountBadge">0 則留言</span>
+          </div>
+        </div>
+
+        <div class="comment-form-box">
+          <div class="comment-identity-row">
+            <input type="text" id="commentAuthorInput" class="comment-input-name" maxlength="24" placeholder="輸入暱稱（留白將自動配發無名氏序號）">
+            <div class="identity-quick-btns">
+              <button type="button" class="quick-id-btn" onclick="setRandomSerial()">🎲 隨機序號</button>
+              <button type="button" class="quick-id-btn" onclick="setPureAnonymous()">👤 無名氏</button>
+            </div>
+          </div>
+          <textarea id="commentBodyInput" class="comment-textarea" maxlength="600" placeholder="寫下對這一節的感想或吐槽吧……（免註冊即可直接送出）"></textarea>
+          <div class="comment-submit-row">
+            <span class="comment-hint" id="currentIdentityPreview">送出時將顯示為：無名氏 #0000</span>
+            <button type="button" id="commentSubmitBtn" class="comment-submit-btn" onclick="submitComment()">送出留言</button>
+          </div>
+        </div>
+
+        <div class="comments-list" id="commentsList">
+          <div class="comments-empty">正在載入留言……</div>
+        </div>
+      </section>
     </article>
   </div>
 
   <footer>
-    《忍者喵喵》同人小說錄 · 純文字與前端分離架構
+    《忍者喵喵》同人小說錄 · 零建置純文字動態渲染架構 · 支援 GitHub Pages 與即時讀者留言
   </footer>
 
   <!-- 燈箱彈窗 -->
@@ -644,122 +792,325 @@
     <div class="lightbox-caption" id="modalCaption"></div>
   </div>
 
-  <script>
-    const fallbackManifest = [{"id": 1, "file": "chapters/chapter_01.txt", "label": "EPISODE 01", "tabTitle": "第一節", "title": "第一節：無聊的擦邊廣告——《忍者喵喵》", "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的哭喊求饒，與公園單槓場的悠閒午後。", "cover": "images/cg_blade.jpg", "badge": "EP.01"}, {"id": 2, "file": "chapters/chapter_02.txt", "label": "EPISODE 02", "tabTitle": "第二節", "title": "第二節：初遇——單槓場上的鬼角劍姬", "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒時由黑絲長腿仰望而上的視線……「變態……」與驟然蒸發的殘影。", "cover": "images/kunoichi_view.jpg", "badge": "EP.02"}, {"id": 3, "file": "chapters/chapter_03.txt", "label": "EPISODE 03", "tabTitle": "第三節", "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？", "desc": "手滑把「無糖綠」填入入群問題的烏龍，與被河童王社群全員當作賣茶機器人的熱烈拷問。", "cover": "images/cg_throne.jpg", "badge": "EP.03"}, {"id": 4, "file": "chapters/chapter_04.txt", "label": "EPISODE 04", "tabTitle": "第四節", "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」", "desc": "日常免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的靈魂呢喃——「記得來找我，我是円香。」", "cover": "images/cg_stance.jpg", "badge": "EP.04"}, {"id": 5, "file": "chapters/chapter_05.txt", "label": "EPISODE 05", "tabTitle": "第五節", "title": "第五節：狂奔的粉髮男子——「有事情要發生了」", "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的堅硬大胸肌！公園大逃殺與神祕預言。", "cover": "images/cg_sakura.jpg", "badge": "EP.05"}];
-    const fallbackTexts = {
-      3: "第三節：忍者喵喵社群叫做河童王是不是有點不妙？\n\n洗完熱水澡，我脖子上掛著毛巾，一邊擦著濕漉漉的頭髮，一邊晃回書桌前。\n\n剛把手機扔在桌上，機身就跟觸電似地瘋狂震動起來，螢幕上接二連三地彈出訊息。\n\n「趕快下載《忍者喵喵》！一起來玩啦！」發訊人是夜雨。\n\n我拿起手機，無奈地單手打字：『那遊戲我半年前就玩過了，無聊得要死，防線紙糊的一樣，怪衝兩下就暴斃，根本是純騙課金的免洗手遊。』\n\n「怎麼會？肯定是你打開遊戲的姿勢不對！」夜雨秒回，「那你先加社群，攻略多得是。連結丟你了，進DC群看看？」\n\n『DC我本來就在裡面啊。但那裡面根本沒幾個人認真聊攻略，偶爾冒泡講的也全是我聽不懂的黑話，什麼大冰奶、麻糬、暴擊流的，不知道在打什麼啞謎。』\n\n「嘖，那去加這個！」夜雨又甩了個連結過來，「FB上面推的，叫做『河童王-忍者喵喵社群』，這群很活躍。」\n\n我盯著螢幕，眼角微微抽搐。\n\n河童王？這什麼中二又詭異的社群名稱？真的不會是奇怪的詐騙集團或是滿嘴怪話的邪教聚集地嗎？\n\n帶著半信半疑的心情點開Line社群申請連結，立刻跳出了一道身分審核頁面：\n\n[QUOTE: 【請輸入入群驗證問題】\n1. 你最喜歡的技能是什麼？\n2. 你的暱稱叫什麼？]\n\n我順手在鍵盤上敲下答案。按出送出的那半秒，我的腦袋忽然當機了一下。\n\n等等——我輸入了什麼？\n\n『技能：無糖綠；暱稱：苦無。』\n\n靠，完全填反了！我最喜歡的技能是無糖綠茶是什麼鬼？！\n\n我手忙腳亂地想取消重改，結果破爛的Line介面瞬間轉圈卡死。好不容易重啟App，趕緊重新送出了一次正確的：『技能：苦無；暱稱：無糖綠』。\n\n反正閒著也是閒著，夜雨既然都開口了，我便順手點開應用程式商店，把半年前被我無情刪除的《忍者喵喵》重新載了回來。\n\n這次我學聰明了，沒去碰那個只會柔弱求饒的冰系如月，而是選了一個操縱雷電忍術的新角色。\n\n手指在螢幕上滑動，雷電在怪群中劈啪作響，激盪出一顆顆跳躍擴散的閃電球，滿屏雷光炸裂，畫面感竟然意外地像早期的彈幕射擊遊戲《雷電》。\n\n「……咦？好像還挺爽的？」\n\n就這樣，原本只打算試玩幾分鐘的我，莫名其妙又在各個關卡和電弧閃爍中沉迷了半個月。\n\n直到半個月後的某個週末，夜雨的訊息再度轟炸過來。\n\n「喂，你到底加群了沒？我怎麼在群組名單翻半天都沒看到你？」\n\n我一手握著單槓做拉筋，一手滑著手機：『有啊，我不是早就進去了？』\n\n我看著自己手機裡的Discord頻道，心想這傢伙是不是眼花。\n\n「我是說Line群！河童王那個大群！」\n\n『呃……』我切到Line看了一眼審核頁面，狀態欄依然是一片安靜無聲的等待審核，『好像還真沒有，一直卡著沒通過的樣子。』\n\n「搞什麼啊？我去問一下幹部。」\n\n過了幾分鐘，夜雨發來一個笑到流淚的貼圖：「幹部說你之前的申請紀錄答錯問題被系統踢了啦！你趕快重新申請一次，我幫你打聲招呼。」\n\n我有些尷尬地再次送出申請。這一次，幾乎是秒通過。\n\n伴隨著一陣歡迎新人的系統提示，迎面而來的不是什麼友善的問候，而是一長串我完全看不懂的古怪ID，以及撲面而來的「新手身分洗禮」：\n\n[CHAT_START: 河童王-忍者喵喵社群 | images/kappa_avatar.jpg]\n系統通知 | 「無糖綠」已加入聊天室。 | 下午 3:14\n夜雨 | 哈哈，大家都在等你！新人快進來報到！ | 下午 3:14\n路人甲 | 來了個新人？等等，這不是那個填「最喜歡的技能是無糖綠」的傢伙嗎ｗｗｗ | 下午 3:15\n手搖飲愛好者 | 笑死，把手搖飲當必殺技的勇者出現了！ | 下午 3:15\n河童王 | 要記得我是河童王，也是這個群的王！ | 下午 3:16\n副管理員 | 老實交代，是不是假帳號？是不是賣茶的廣告機器人？通關密語是什麼？快說！ | 下午 3:16\n[CHAT_END]\n\n看著群組裡七嘴八舌的拷問，為了自證清白不是詐騙，我只得硬著頭皮一一回答那些刁鑽古怪的手遊問題。\n\n一邊打字解釋，我一邊在心裡默默吐槽：\n\n其實我到現在也沒想明白，當初為什麼腦袋一抽，會覺得「無糖綠」聽起來像是一招足以毀天滅地的終極忍術。\n"
+  <!-- Firebase SDK (使用模組化 CDN 連線至 Firestore) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBjKWlqW-XyjvJrxs80SbAKkhnCpa3qPbc",
+      authDomain: "nyannyan-shinobi-nove.firebaseapp.com",
+      projectId: "nyannyan-shinobi-nove",
+      storageBucket: "nyannyan-shinobi-nove.firebasestorage.app",
+      messagingSenderId: "45546581106",
+      appId: "1:45546581106:web:3c7fdf2ac6b84076dee6eb",
+      measurementId: "G-9Q05F9QSQE"
     };
 
-    let manifestData = [];
-    let currentChapterId = 1;
-    const STORAGE_KEY = 'nyannyan_novel_last_read';
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    let unsubscribeComments = null;
 
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    // 產生或讀取本機預設隨機四碼序號
+    function getOrCreateDefaultSerial() {
+      let code = localStorage.getItem('nyan_guest_serial');
+      if (!code) {
+        code = String(Math.floor(1000 + Math.random() * 9000));
+        localStorage.setItem('nyan_guest_serial', code);
+      }
+      return `無名氏 #${code}`;
     }
 
-    // 核心純文字解析器：支援 [CG: ...], [QUOTE: ...], 以及 [CHAT_START: ...] ... [CHAT_END]
-    function parseNovelTextToHtml(rawText) {
-      const lines = rawText.trim().split(/\r?\n/);
-      if (lines.length === 0) return '';
+    // 動態更新身分預覽提示
+    window.updateIdentityPreview = function() {
+      const input = document.getElementById('commentAuthorInput');
+      const preview = document.getElementById('currentIdentityPreview');
+      if (!input || !preview) return;
+      const val = input.value.trim();
+      const finalName = val ? val : getOrCreateDefaultSerial();
+      preview.innerText = `送出時將顯示為：${finalName}`;
+    };
 
-      const titleLine = lines[0].trim();
-      const bodyLines = lines.slice(1);
-      let htmlOutput = `<h1 class="chapter-heading">${escapeHtml(titleLine)}</h1><div class="novel-body">`;
+    window.setRandomSerial = function() {
+      const newCode = String(Math.floor(1000 + Math.random() * 9000));
+      localStorage.setItem('nyan_guest_serial', newCode);
+      const input = document.getElementById('commentAuthorInput');
+      input.value = `無名氏 #${newCode}`;
+      window.updateIdentityPreview();
+    };
 
-      let currentQuoteBuffer = [];
-      let inQuote = false;
+    window.setPureAnonymous = function() {
+      const input = document.getElementById('commentAuthorInput');
+      input.value = '無名氏';
+      window.updateIdentityPreview();
+    };
 
-      let inChat = false;
-      let chatGroupTitle = '';
-      let chatGroupAvatar = '';
-      let chatMessages = [];
+    // 監聽當前章節留言
+    window.loadChapterComments = function(chapterId) {
+      const listEl = document.getElementById('commentsList');
+      const countBadge = document.getElementById('commentsCountBadge');
+      if (!listEl) return;
 
-      for (let i = 0; i < bodyLines.length; i++) {
-        const line = bodyLines[i].trim();
+      if (unsubscribeComments) {
+        unsubscribeComments();
+        unsubscribeComments = null;
+      }
+
+      listEl.innerHTML = '<div class="comments-empty">正在讀取雲端留言……</div>';
+
+      const q = query(
+        collection(db, "chapter_comments"),
+        where("chapterId", "==", Number(chapterId))
+      );
+
+      unsubscribeComments = onSnapshot(q, (snapshot) => {
+        const items = [];
+        snapshot.forEach((doc) => {
+          items.push({ id: doc.id, ...doc.data() });
+        });
+
+        // 依時間由新到舊排序（免設定複合索引）
+        items.sort((a, b) => {
+          const tA = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.clientTime || 0);
+          const tB = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.clientTime || 0);
+          return tB - tA;
+        });
+
+        countBadge.innerText = `${items.length} 則留言`;
+
+        if (items.length === 0) {
+          listEl.innerHTML = '<div class="comments-empty">目前還沒有留言，快來搶頭香留下你的感想吧！</div>';
+          return;
+        }
+
+        listEl.innerHTML = items.map(item => {
+          const safeAuthor = escapeHtmlClient(item.author || '無名氏');
+          const safeText = escapeHtmlClient(item.content || '');
+          const dateObj = item.createdAt?.toDate ? item.createdAt.toDate() : new Date(item.clientTime || Date.now());
+          const timeStr = `${dateObj.getFullYear()}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')} ${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
+
+          // 若包含 #序號，給予亮眼小標籤樣式
+          let authorHtml = safeAuthor;
+          const serialMatch = safeAuthor.match(/^(.*?)\s*(#\d{4})$/);
+          if (serialMatch) {
+            authorHtml = `${serialMatch[1]} <span class="author-tag-serial">${serialMatch[2]}</span>`;
+          }
+
+          return `
+            <div class="comment-item">
+              <div class="comment-meta">
+                <div class="comment-author">${authorHtml}</div>
+                <div class="comment-time">${timeStr}</div>
+              </div>
+              <div class="comment-body">${safeText}</div>
+            </div>
+          `;
+        }).join('');
+      }, (err) => {
+        console.error("Firestore error:", err);
+        listEl.innerHTML = '<div class="comments-empty">留言讀取失敗，請確認 Firestore 資料庫已開啟並設為測試模式。</div>';
+      });
+    };
+
+    // 送出新留言
+    window.submitComment = async function() {
+      const authorInput = document.getElementById('commentAuthorInput');
+      const bodyInput = document.getElementById('commentBodyInput');
+      const submitBtn = document.getElementById('commentSubmitBtn');
+
+      const content = bodyInput.value.trim();
+      if (!content) {
+        alert("請先輸入留言內容喔！");
+        bodyInput.focus();
+        return;
+      }
+
+      const rawAuthor = authorInput.value.trim();
+      const author = rawAuthor ? rawAuthor : getOrCreateDefaultSerial();
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "傳送中…";
+
+      try {
+        await addDoc(collection(db, "chapter_comments"), {
+          chapterId: Number(window.currentChapterId || 1),
+          author: author,
+          content: content,
+          clientTime: Date.now(),
+          createdAt: serverTimestamp()
+        });
+        bodyInput.value = "";
+      } catch (e) {
+        console.error("Add comment error:", e);
+        alert("留言送出失敗，請檢查網路連線或 Firebase 規則設定。");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "送出留言";
+      }
+    };
+
+    function escapeHtmlClient(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const authorInput = document.getElementById('commentAuthorInput');
+      if (authorInput) {
+        authorInput.addEventListener('input', window.updateIdentityPreview);
+        window.updateIdentityPreview();
+      }
+    });
+  </script>
+
+  <script>
+    let manifestData = [];
+    let chaptersCache = {};
+    window.currentChapterId = 1;
+
+    // 初始化載入
+    async function initApp() {
+      try {
+        const res = await fetch('chapters/manifest.json');
+        if (!res.ok) throw new Error('Manifest not found');
+        manifestData = await res.json();
+      } catch (e) {
+        manifestData = [
+          { "id": 1, "file": "chapters/chapter_01.txt", "label": "EPISODE 01", "tabTitle": "第一節", "title": "第一節：無聊的擦邊廣告——《忍者喵喵》", "desc": "下載三十分鐘、刪除三秒鐘的免洗塔防；冰系如月的哭喊求饒，與社區公園單槓場上兩個好勝蹦跳的小朋友。", "cover": "images/cg_blade.jpg", "badge": "EPISODE 01" },
+          { "id": 2, "file": "chapters/chapter_02.txt", "label": "EPISODE 02", "tabTitle": "第二節 (特寫)", "title": "第二節：初遇——單槓場上的鬼角劍姬", "desc": "悄然無聲的忍者腳步、翻轉失衡摔倒時由黑絲長腿一路向上的視線……「變態……」，以及驟然蒸發的不可思議殘影。", "cover": "images/kunoichi_view.jpg", "badge": "精選焦點 · EPISODE 02" },
+          { "id": 3, "file": "chapters/chapter_03.txt", "label": "EPISODE 03", "tabTitle": "第三節", "title": "第三節：忍者喵喵社群叫做河童王是不是有點不妙？", "desc": "手滑把「無糖綠」填入入群問題的烏龍；滿屏電弧炸裂的新角色，與被河童王社群全員當作賣茶機器人的熱烈拷問。", "cover": "images/cg_throne.jpg", "badge": "EPISODE 03" },
+          { "id": 4, "file": "chapters/chapter_04.txt", "label": "EPISODE 04", "tabTitle": "第四節", "title": "第四節：免抽——「這次你的名字叫無糖綠嗎？」", "desc": "日常免費抽隨手按過，粉紅長髮一閃而過卻突然閃退；單槓上的靈魂呢喃——「記得來找我，我是円香。」", "cover": "images/cg_stance.jpg", "badge": "EPISODE 04" },
+          { "id": 5, "file": "chapters/chapter_05.txt", "label": "EPISODE 05", "tabTitle": "第五節 (新)", "title": "第五節：狂奔的粉髮男子——「有事情要發生了」", "desc": "以為追上了粉髮鬼角少女，醒來卻抓著一米八五女裝猛男的堅硬大胸肌！驚心動魄的公園大逃殺與神祕預言。", "cover": "images/cg_sakura.jpg", "badge": "最新 · EPISODE 05" }
+        ];
+      }
+
+      renderNavTabs();
+      renderHomeGrid();
+    }
+
+    function renderNavTabs() {
+      const container = document.getElementById('navTabsContainer');
+      let html = `<button class="tab-btn active" id="tab-home" onclick="switchView('home')">首頁總覽</button>`;
+      manifestData.forEach(ch => {
+        const isFocus = ch.id === 2 ? 'tab-focus' : '';
+        html += `<button class="tab-btn ${isFocus}" id="tab-ch-${ch.id}" onclick="openChapter(${ch.id})">${ch.tabTitle}</button>`;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderHomeGrid() {
+      const container = document.getElementById('chaptersGridContainer');
+      let html = '';
+      manifestData.forEach(ch => {
+        const isHighlight = ch.id === 2 ? 'style="border-color: rgba(244, 63, 94, 0.4);"' : '';
+        const tagClass = ch.id === 2 ? 'episode-tag highlight' : 'episode-tag';
+        html += `
+          <div class="chapter-card" ${isHighlight} onclick="openChapter(${ch.id})">
+            <div class="card-thumb">
+              <img src="${ch.cover}" alt="${ch.title}">
+              <span class="${tagClass}">${ch.badge}</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">${ch.title}</h3>
+              <p class="card-text">${ch.desc}</p>
+              <div class="card-action">展開閱讀 <span>→</span></div>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function switchView(view) {
+      const homeView = document.getElementById('home-view');
+      const readerView = document.getElementById('reader-view');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      if (view === 'home') {
+        homeView.style.display = 'block';
+        readerView.style.display = 'none';
+        document.getElementById('tab-home').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        homeView.style.display = 'none';
+        readerView.style.display = 'block';
+      }
+    }
+
+    async function openChapter(id) {
+      const chMeta = manifestData.find(c => c.id === id);
+      if (!chMeta) return;
+      window.currentChapterId = id;
+
+      switchView('reader');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeTab = document.getElementById('tab-ch-' + id);
+      if (activeTab) activeTab.classList.add('active');
+
+      document.getElementById('reader-ep-label').innerText = chMeta.label;
+
+      let rawText = chaptersCache[id];
+      if (!rawText) {
+        try {
+          const res = await fetch(chMeta.file);
+          if (!res.ok) throw new Error('Failed to load text');
+          rawText = await res.text();
+        } catch (e) {
+          rawText = "讀取章節內容失敗，請確認檔案路徑是否正確。";
+        }
+        chaptersCache[id] = rawText;
+      }
+
+      document.getElementById('reader-content-target').innerHTML = parseNovelText(rawText);
+
+      // 載入該章節專屬的 Firebase 留言板
+      if (typeof window.loadChapterComments === 'function') {
+        window.loadChapterComments(id);
+      }
+
+      const currentIndex = manifestData.findIndex(c => c.id === id);
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      prevBtn.style.display = currentIndex > 0 ? 'inline-flex' : 'none';
+      nextBtn.style.display = currentIndex < manifestData.length - 1 ? 'inline-flex' : 'none';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function turnPage(offset) {
+      const currentIndex = manifestData.findIndex(c => c.id === window.currentChapterId);
+      const targetIndex = currentIndex + offset;
+      if (targetIndex >= 0 && targetIndex < manifestData.length) {
+        openChapter(manifestData[targetIndex].id);
+      }
+    }
+
+    function parseNovelText(text) {
+      const lines = text.split('\n');
+      let html = '';
+      let isFirstTitle = true;
+
+      for (let line of lines) {
+        line = line.trim();
         if (!line) continue;
 
-        // 1. 處理手機群組對話小框 [CHAT_START: 群名 | 頭像路徑] ... [CHAT_END]
-        if (line.startsWith('[CHAT_START:')) {
-          inChat = true;
-          const inner = line.slice(12, -1).trim();
-          const parts = inner.split('|');
-          chatGroupTitle = parts[0] ? parts[0].trim() : '社群聊天室';
-          chatGroupAvatar = parts[1] ? parts[1].trim() : 'images/kappa_avatar.jpg';
-          chatMessages = [];
-          continue;
-        }
-        if (inChat) {
-          if (line === '[CHAT_END]') {
-            inChat = false;
-            let msgHtml = '';
-            chatMessages.forEach(m => {
-              const isSys = m.sender.includes('系統') ? 'sys' : '';
-              msgHtml += `
-                <div class="chat-msg-item">
-                  <div class="chat-msg-top">
-                    <span class="chat-sender ${isSys}">${escapeHtml(m.sender)}</span>
-                    <span class="chat-time">${escapeHtml(m.time)}</span>
-                  </div>
-                  <p class="chat-text">${escapeHtml(m.text)}</p>
-                </div>
-              `;
-            });
-            htmlOutput += `
-              <div class="chat-widget">
-                <div class="chat-widget-header">
-                  <div class="chat-widget-title">${escapeHtml(chatGroupTitle)}</div>
-                  <img src="${chatGroupAvatar}" alt="${escapeHtml(chatGroupTitle)}" class="chat-widget-avatar" onerror="this.style.display='none'">
-                </div>
-                <div class="chat-msg-list">
-                  ${msgHtml}
-                </div>
-              </div>
-            `;
-          } else {
-            const mParts = line.split('|');
-            chatMessages.push({
-              sender: mParts[0] ? mParts[0].trim() : '成員',
-              text: mParts[1] ? mParts[1].trim() : '',
-              time: mParts[2] ? mParts[2].trim() : ''
-            });
-          }
+        if (isFirstTitle && (line.startsWith('第一節') || line.startsWith('第二節') || line.startsWith('第三節') || line.startsWith('第四節') || line.startsWith('第五節') || line.includes('節：'))) {
+          html += `<h1 class="chapter-heading">${escapeHtml(line)}</h1><div class="novel-body">`;
+          isFirstTitle = false;
           continue;
         }
 
-        // 2. 處理多行 [QUOTE: ...] 語法
-        if (line.startsWith('[QUOTE:')) {
-          inQuote = true;
-          const content = line.replace(/^\[QUOTE:\s*/, '');
-          if (content.endsWith(']')) {
-            inQuote = false;
-            htmlOutput += `<div class="quote-box">${escapeHtml(content.slice(0, -1))}</div>`;
-          } else {
-            currentQuoteBuffer.push(escapeHtml(content));
-          }
-          continue;
-        }
-        if (inQuote) {
-          if (line.endsWith(']')) {
-            inQuote = false;
-            currentQuoteBuffer.push(escapeHtml(line.slice(0, -1)));
-            htmlOutput += `<div class="quote-box">${currentQuoteBuffer.join('<br>')}</div>`;
-            currentQuoteBuffer = [];
-          } else {
-            currentQuoteBuffer.push(escapeHtml(line));
-          }
-          continue;
-        }
-
-        // 3. 處理插圖語法 [CG: 圖片路徑 | 圖片說明]
-        if (line.startsWith('[CG:') && line.endsWith(']')) {
-          const inner = line.slice(4, -1).trim();
-          const parts = inner.split('|');
-          const imgSrc = parts[0].trim();
-          const caption = parts[1] ? parts[1].trim() : '點擊放大預覽';
-          htmlOutput += `
+        const cgMatch = line.match(/^\[CG:\s*(.*?)\s*\|\s*(.*?)\]$/);
+        if (cgMatch) {
+          const imgSrc = cgMatch[1];
+          const caption = cgMatch[2];
+          html += `
             <div class="cg-container">
-              <div class="cg-frame" onclick="openModal('${imgSrc}', '【${escapeHtml(caption)}】')">
+              <div class="cg-frame" onclick="openModal('${imgSrc}', '${escapeHtml(caption)}')">
                 <img src="${imgSrc}" alt="${escapeHtml(caption)}" class="novel-cg" loading="lazy">
                 <div class="cg-caption">【點擊放大】${escapeHtml(caption)}</div>
               </div>
@@ -768,147 +1119,21 @@
           continue;
         }
 
-        // 4. 特殊台詞強調
-        if (line === '「變態……」') {
-          htmlOutput += `<p class="dialogue-critical">${escapeHtml(line)}</p>`;
+        const quoteMatch = line.match(/^\[QUOTE:\s*([\s\S]*?)\]$/);
+        if (quoteMatch) {
+          html += `<div class="quote-box">${escapeHtml(quoteMatch[1]).replace(/\\n/g, '<br>')}</div>`;
           continue;
         }
 
-        // 5. 一般小說段落
-        htmlOutput += `<p>${escapeHtml(line)}</p>`;
+        html += `<p>${escapeHtml(line)}</p>`;
       }
 
-      htmlOutput += `</div>`;
-      return htmlOutput;
+      if (!isFirstTitle) html += `</div>`;
+      return html;
     }
 
-    async function initSite() {
-      try {
-        const res = await fetch('chapters/manifest.json');
-        if (!res.ok) throw new Error('Fetch failed');
-        manifestData = await res.json();
-      } catch (err) {
-        manifestData = fallbackManifest;
-      }
-
-      document.getElementById('chapter-count-label').innerText = `共 ${manifestData.length} 節`;
-      renderNavigationAndCards();
-      updateResumeBanner();
-    }
-
-    function updateResumeBanner() {
-      const savedId = parseInt(localStorage.getItem(STORAGE_KEY), 10);
-      const banner = document.getElementById('resume-banner');
-      if (!savedId) {
-        banner.style.display = 'none';
-        return;
-      }
-      const item = manifestData.find(x => x.id === savedId);
-      if (item) {
-        banner.style.display = 'block';
-        document.getElementById('resume-label').innerText = `📖 上次讀到（${item.badge}）：${item.title}`;
-        document.getElementById('resume-btn').onclick = () => openChapter(savedId);
-      }
-    }
-
-    function renderNavigationAndCards() {
-      const navContainer = document.getElementById('nav-tabs-container');
-      const gridContainer = document.getElementById('chapters-grid-container');
-      const savedId = parseInt(localStorage.getItem(STORAGE_KEY), 10);
-
-      navContainer.innerHTML = `<button class="tab-btn active" id="tab-home" onclick="switchView('home')">目錄總覽</button>`;
-      gridContainer.innerHTML = '';
-
-      manifestData.forEach(item => {
-        const btn = document.createElement('button');
-        btn.className = 'tab-btn';
-        btn.id = 'tab-ch' + item.id;
-        btn.innerText = item.tabTitle;
-        btn.onclick = () => openChapter(item.id);
-        navContainer.appendChild(btn);
-
-        const card = document.createElement('div');
-        card.className = 'chapter-card';
-        card.onclick = () => openChapter(item.id);
-
-        const lastReadHtml = (item.id === savedId) ? `<span class="last-read-badge">上次閱讀</span>` : '';
-
-        card.innerHTML = `
-          <div class="card-thumb">
-            <img src="${item.cover}" alt="${item.title}" loading="lazy">
-            <span class="episode-tag">${item.badge}</span>
-            ${lastReadHtml}
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">${item.title}</h3>
-            <p class="card-text">${item.desc}</p>
-            <div class="card-action">展開閱讀 →</div>
-          </div>
-        `;
-        gridContainer.appendChild(card);
-      });
-    }
-
-    function switchView(view) {
-      const homeView = document.getElementById('home-view');
-      const readerView = document.getElementById('reader-view');
-      const tabHome = document.getElementById('tab-home');
-
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      if (view === 'home') {
-        homeView.style.display = 'block';
-        readerView.style.display = 'none';
-        tabHome.classList.add('active');
-        renderNavigationAndCards();
-        updateResumeBanner();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        homeView.style.display = 'none';
-        readerView.style.display = 'block';
-      }
-    }
-
-    async function openChapter(chId) {
-      const item = manifestData.find(x => x.id === chId);
-      if (!item) return;
-
-      currentChapterId = chId;
-      localStorage.setItem(STORAGE_KEY, chId);
-      switchView('reader');
-
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      const activeTab = document.getElementById('tab-ch' + chId);
-      if (activeTab) activeTab.classList.add('active');
-
-      document.getElementById('reader-ep-label').innerText = item.label;
-      const targetDiv = document.getElementById('reader-content-target');
-      targetDiv.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">載入章節中...</p>';
-
-      let rawText = '';
-      try {
-        const res = await fetch(item.file);
-        if (!res.ok) throw new Error('File fetch failed');
-        rawText = await res.text();
-      } catch (err) {
-        rawText = fallbackTexts[chId] || '找不到章節內容，請確認對應的 .txt 檔案是否存在。';
-      }
-
-      targetDiv.innerHTML = parseNovelTextToHtml(rawText);
-
-      const maxId = Math.max(...manifestData.map(x => x.id));
-      const minId = Math.min(...manifestData.map(x => x.id));
-      document.getElementById('prev-btn').style.display = (chId <= minId) ? 'none' : 'inline-flex';
-      document.getElementById('next-btn').style.display = (chId >= maxId) ? 'none' : 'inline-flex';
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function turnPage(offset) {
-      const targetId = currentChapterId + offset;
-      if (manifestData.some(x => x.id === targetId)) {
-        openChapter(targetId);
-      }
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
     function openModal(src, caption) {
@@ -919,14 +1144,15 @@
     }
 
     function closeModal(e) {
-      document.getElementById('lightboxModal').classList.remove('active');
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.remove('active');
     }
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
 
-    initSite();
+    initApp();
   </script>
 </body>
 </html>
